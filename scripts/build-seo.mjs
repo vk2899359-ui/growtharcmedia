@@ -46,6 +46,7 @@ const posts = [...blogPosts].sort((a, b) => (a.date < b.date ? 1 : -1));
 
 const urls = [
   { loc: '/', changefreq: 'weekly', priority: '1.0', lastmod: today },
+  { loc: '/about', changefreq: 'monthly', priority: '0.9', lastmod: today },
   { loc: '/work.html', changefreq: 'monthly', priority: '0.9', lastmod: today },
   { loc: '/blog', changefreq: 'weekly', priority: '0.9', lastmod: posts[0]?.date || today },
   ...SERVICES.map(([slug]) => ({
@@ -73,6 +74,7 @@ const urls = [
 const missing = urls.filter(({ loc }) => {
   if (loc === '/') return !existsSync(resolve(root, 'index.html'));
   if (loc === '/blog') return !existsSync(resolve(root, 'blog/index.html'));
+  if (loc === '/about') return !existsSync(resolve(root, 'about/index.html'));
   if (loc.startsWith('/blog/')) return !existsSync(resolve(root, `blog/${loc.slice(6)}/index.html`));
   return !existsSync(resolve(root, loc.replace(/^\//, '')));
 });
@@ -118,6 +120,10 @@ const llms = `# GrowthArc Media
 - Phone / WhatsApp: +91 79060 81795
 - Email: vinod@growtharcmedia.in
 - Website: ${SITE}
+
+## Company
+
+- [Who We Are — about GrowthArc Media](${SITE}/about): The agency's story since 2023, its founder Vinod Kumar, how it works, and the brands it has grown.
 
 ## Services
 

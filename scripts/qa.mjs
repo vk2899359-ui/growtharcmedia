@@ -19,7 +19,7 @@ const BLOG_SLUGS = readdirSync(new URL('../blog/', import.meta.url), { withFileT
   .map(e => e.name);
 
 const PAGES = [
-  '/', '/work.html', '/blog',
+  '/', '/about', '/work.html', '/blog',
   ...['brand-strategy','brand-identity','creative-content','digital-marketing','performance-marketing','web-development'].map(s=>`/services/${s}.html`),
   ...['auric-jewels','gemhub','kisaansay','superup-home-solution','kabeer-confectionery','veda-club','akiso','rupeenest-capital'].map(s=>`/work/${s}.html`),
   ...BLOG_SLUGS.map(s=>`/blog/${s}`),
