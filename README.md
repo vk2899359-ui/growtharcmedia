@@ -38,9 +38,14 @@ enquiry modal and mobile drawer. Set `CHROME_PATH` to pin a browser binary.
 
 - **Native scrolling is never hijacked.** Scroll position is only read. There is
   no smooth-scroll wrapper and no wheel interception.
-- **Media containers never resize on scroll.** The hero frame moves between
-  `0.98` and `1.01` and nothing else scales at all. All visible travel happens
-  *inside* a frame as crop movement, so layout cannot shift.
+- **Exactly one element resizes on scroll.** The hero frame expands to fill
+  the viewport and settles back into its frame. It sits in its own sticky
+  track, so the track reserves that space up front and nothing below it can be
+  pushed around. Every other media container holds its size — movement there
+  is crop travel *inside* the frame.
+- **The capability cards are a 3D stack.** Each pins in turn while the next
+  rides over it; passed cards recede on Z and tilt back. Below 768px they flow
+  normally, because a pinned stack of six tall cards is unusable on a phone.
 - **One batched frame loop.** Effects register with `onFrame()`; the loop reads
   scroll once per animation frame and writes transform/opacity only.
 - **Reveals are typed, not uniform.** Headings unmask upward, copy rises, media

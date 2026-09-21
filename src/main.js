@@ -3,9 +3,11 @@
 // Design rules this file follows:
 //  • The browser's own wheel scrolling is never hijacked or smoothed.
 //    Scroll position is only *read*; it drives reveals, parallax and crop.
-//  • Media containers never change size on scroll. Scale stays inside
-//    0.98 – 1.01 so composition is stable; movement happens *inside* the
-//    frame (crop/parallax) rather than by growing the frame.
+//  • Exactly one element resizes on scroll: the hero frame, which expands to
+//    the viewport and settles back. It lives in its own sticky track, so the
+//    track reserves the space up front and nothing below it can be pushed.
+//  • Every other media container holds its size. Movement there happens
+//    *inside* the frame (crop/parallax), never by growing the frame.
 //  • Every scroll-driven write happens once per animation frame, batched,
 //    using transform/opacity only.
 //  • A video that fails, is blocked, or never loads falls back to its poster.
@@ -82,6 +84,7 @@ function boot() {
   initHeaderBehavior();
   initRevealChoreography();
   initHeroMediaMotion();
+  initCapabilityStack();
   initPanelMediaParallax();
   initMarqueeMotion();
   initPinnedPortfolioSequence();
@@ -300,39 +303,146 @@ function initRevealChoreography() {
    disruptive. All the visible travel happens *inside* the frame, as crop.
    -------------------------------------------------------------------------- */
 
-const HERO_SCALE_MIN = 0.98;
-const HERO_SCALE_MAX = 1.01;
+/* --------------------------------------------------------------------------
+   4. Cinematic hero
+   The stage is a tall scroll track with a pinned viewport. Scroll drives the
+   frame from its framed size out to the full viewport and back again — the
+   media is object-fit: cover the whole way, so nothing is ever stretched.
+
+   Only the frame's own box changes. It is position: sticky inside its own
+   track, so growing it cannot move anything that follows: the track reserves
+   its height up front.
+   -------------------------------------------------------------------------- */
+
+// Fraction of the track spent expanding, held at full size, and contracting.
+const HERO_EXPAND_END = 0.36;
+const HERO_HOLD_END = 0.62;
+
+const easeInOut = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 
 function initHeroMediaMotion() {
   const stage = document.getElementById('heroVideoStage');
   const frame = stage && stage.querySelector('.hero-video-frame');
   if (!stage || !frame) return;
-  if (reduceMotion()) return;
+
+  // Reduced motion keeps the plain framed video.
+  if (reduceMotion()) {
+    stage.classList.add('is-static');
+    return;
+  }
 
   const media = frame.querySelector('video, img');
-  // Inner media is oversized slightly so it can travel without exposing an edge.
-  if (media) media.style.willChange = 'transform';
+  let rendered = -1;
 
-  let renderedScale = HERO_SCALE_MIN;
+  const write = (expand) => {
+    if (Math.abs(expand - rendered) < 0.002) return;
+    rendered = expand;
+
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+
+    // Framed size: the container width, at the section's 16:9 ratio.
+    const gutter = vw <= 768 ? 20 : 32;
+    const framedW = Math.min(vw - gutter * 2, 1440 - gutter * 2);
+    const framedH = framedW * (9 / 16);
+
+    const w = framedW + (vw - framedW) * expand;
+    const h = framedH + (vh - framedH) * expand;
+    const r = 28 * (1 - expand);
+
+    stage.style.setProperty('--expand', expand.toFixed(4));
+    stage.style.setProperty('--frame-w', `${w.toFixed(1)}px`);
+    stage.style.setProperty('--frame-h', `${h.toFixed(1)}px`);
+    stage.style.setProperty('--frame-r', `${r.toFixed(1)}px`);
+  };
+
+  write(0);
 
   onFrame(({ viewportHeight }) => {
     const rect = stage.getBoundingClientRect();
-    if (rect.bottom < -200 || rect.top > viewportHeight + 200) return;
+    const travel = stage.offsetHeight - viewportHeight;
+    if (travel <= 0) return;
 
-    // 0 while the frame is entering, 1 once it has settled in view.
-    const entering = clamp((viewportHeight - rect.top) / (viewportHeight * 0.85), 0, 1);
-    // Rises to 1 mid-viewport, easing back as the frame leaves.
-    const centered = 1 - Math.abs((rect.top + rect.height / 2) - viewportHeight / 2) / viewportHeight;
+    if (rect.bottom < 0 || rect.top > viewportHeight) {
+      write(rect.bottom < 0 ? 0 : 0);
+      return;
+    }
 
-    const target = HERO_SCALE_MIN + entering * (HERO_SCALE_MAX - HERO_SCALE_MIN);
-    renderedScale = lerp(renderedScale, clamp(target, HERO_SCALE_MIN, HERO_SCALE_MAX), 0.18);
-    frame.style.transform = `scale(${renderedScale.toFixed(4)})`;
+    const p = clamp(-rect.top / travel, 0, 1);
 
+    // Expand, hold at full screen, then settle back into the frame.
+    let expand;
+    if (p <= HERO_EXPAND_END) {
+      expand = easeInOut(p / HERO_EXPAND_END);
+    } else if (p <= HERO_HOLD_END) {
+      expand = 1;
+    } else {
+      expand = 1 - easeInOut((p - HERO_HOLD_END) / (1 - HERO_HOLD_END));
+    }
+
+    write(clamp(expand, 0, 1));
+
+    // A touch of crop travel inside the frame while it is framed; none at
+    // full screen, where any offset would expose an edge.
     if (media) {
-      // Crop travel only — the frame clips it, so nothing grows or shifts layout.
-      const travel = isMobile() ? 8 : 16;
-      const offset = (clamp(centered, 0, 1) - 0.5) * travel;
-      media.style.transform = `translate3d(0, ${offset.toFixed(2)}px, 0) scale(1.06)`;
+      const drift = (1 - expand) * (isMobile() ? 6 : 12) * (p - 0.5) * 2;
+      media.style.transform = `translate3d(0, ${drift.toFixed(2)}px, 0) scale(1.04)`;
+    }
+  });
+}
+
+/* --------------------------------------------------------------------------
+   4b. Capability card stack
+   Each card pins in turn and the next rides over it. Cards that have been
+   passed recede on Z and tilt back, which is what makes the pile read as
+   depth instead of as overlapping rectangles.
+   -------------------------------------------------------------------------- */
+
+function initCapabilityStack() {
+  const list = document.querySelector('.service-panels-list');
+  if (!list) return;
+
+  const cards = Array.from(list.querySelectorAll('.service-panel-row'));
+  if (cards.length < 2) return;
+
+  cards.forEach((card, i) => card.style.setProperty('--i', String(i)));
+
+  if (reduceMotion()) return;
+
+  const rendered = new Array(cards.length).fill(-1);
+
+  onFrame(({ viewportHeight }) => {
+    if (isMobile()) {
+      // The stylesheet unpins the cards below 768px; clear anything stale.
+      cards.forEach((card, i) => {
+        if (rendered[i] !== 0) {
+          card.style.setProperty('--depth', '0');
+          rendered[i] = 0;
+        }
+      });
+      return;
+    }
+
+    const listRect = list.getBoundingClientRect();
+    if (listRect.bottom < -200 || listRect.top > viewportHeight + 200) return;
+
+    for (let i = 0; i < cards.length; i += 1) {
+      const card = cards[i];
+      const next = cards[i + 1];
+
+      // How far the following card has travelled over this one.
+      let depth = 0;
+      if (next) {
+        const cardRect = card.getBoundingClientRect();
+        const nextRect = next.getBoundingClientRect();
+        const span = cardRect.height || 1;
+        const covered = cardRect.top + span - nextRect.top;
+        depth = clamp(covered / span, 0, 1);
+      }
+
+      if (Math.abs(depth - rendered[i]) < 0.005) continue;
+      rendered[i] = depth;
+      card.style.setProperty('--depth', depth.toFixed(4));
     }
   });
 }

@@ -145,6 +145,15 @@ console.log('\n=== video scale stability (homepage, 1440px) ===');
   const measure = () => page.evaluate(() => {
     const out = {};
     document.querySelectorAll('.hero-video-frame, .service-video-frame, .sticky-media-panel, .method-video-frame').forEach((el, i) => {
+      // A capability card scales down by design as it recedes into the 3D
+      // stack, and its video scales with it. Measuring a receding card would
+      // test the stack, not the invariant we care about — that the card in
+      // focus holds its video steady. So only sample cards at full depth 0.
+      const card = el.closest('.service-panel-row');
+      if (card) {
+        const depth = parseFloat(getComputedStyle(card).getPropertyValue('--depth')) || 0;
+        if (depth > 0.02) return;
+      }
       const r = el.getBoundingClientRect();
       out[el.className.split(' ')[0] + '#' + i] = { w: +r.width.toFixed(1), h: +r.height.toFixed(1) };
     });
@@ -171,6 +180,19 @@ console.log('\n=== video scale stability (homepage, 1440px) ===');
   }
   for (const [k, v] of Object.entries(seen)) {
     const ratio = v.max / v.min;
+
+    // The hero frame is meant to expand to the viewport and settle back, so
+    // it is measured against the opposite expectation: it must actually get
+    // there, and it must come back.
+    if (k.startsWith('hero-video-frame')) {
+      const grew = v.max >= 1440 * 0.98;
+      const returned = v.min <= 1440 * 0.98;
+      console.log(`  ${k}: ${v.min}px → ${v.max}px  (cinematic expand) ${grew && returned ? 'OK' : 'CHECK'}`);
+      if (!grew) note(`hero frame only reached ${v.max}px — it should expand to the full viewport width`);
+      if (!returned) note(`hero frame never returned below full width (min ${v.min}px) — it should settle back into its frame`);
+      continue;
+    }
+
     const verdict = ratio <= 1.035 ? 'OK' : 'TOO MUCH';
     console.log(`  ${k}: ${v.min}px → ${v.max}px  (${((ratio-1)*100).toFixed(2)}% swing) ${verdict}`);
     if (ratio > 1.035) note(`video container "${k}" scales ${((ratio-1)*100).toFixed(1)}% on scroll (limit 3.5%)`);

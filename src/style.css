@@ -2804,3 +2804,233 @@ section[id], main[id], div[id] {
     padding-bottom: 60px;
   }
 }
+
+/* ==========================================================================
+   24. CINEMATIC HERO — EXPAND TO VIEWPORT, THEN SETTLE BACK
+   The stage becomes a tall scroll track with a pinned viewport inside it.
+   The frame's size is driven by three custom properties the motion
+   controller writes once per frame, so the video grows to fill the screen
+   and shrinks back into its frame without ever distorting: the media is
+   object-fit: cover throughout, and only the frame's box changes.
+   ========================================================================== */
+
+.hero-media-stage {
+  --expand: 0;          /* 0 = framed, 1 = full viewport */
+  --frame-w: 100%;
+  --frame-h: auto;
+  --frame-r: 28px;
+  height: 260vh;
+  position: relative;
+}
+
+.hero-media-wrapper {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-media-stage .hero-video-frame {
+  width: var(--frame-w);
+  height: var(--frame-h);
+  /* The frame is sized exactly, not by the flex algorithm — without this it
+     is shrunk to fit alongside the ticker and never reaches full height. */
+  flex: none;
+  aspect-ratio: auto;
+  border-radius: var(--frame-r);
+  /* Escape the container gutter so the frame can reach the viewport edge. */
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  transform-origin: center center;
+  contain: layout paint;
+  margin: 0;
+}
+
+/* Chrome and the ticker recede as the video takes the screen. */
+.hero-media-stage .hero-video-badge,
+.hero-media-stage .hero-ticker-bar {
+  opacity: calc(1 - var(--expand));
+  transition: opacity 0.2s linear;
+}
+
+.hero-media-stage .hero-ticker-bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 28px;
+  margin-top: 0;
+}
+
+/* No JS, or reduced motion: the stage is an ordinary framed video again. */
+.hero-media-stage.is-static {
+  height: auto;
+}
+
+.hero-media-stage.is-static .hero-media-wrapper {
+  position: static;
+  height: auto;
+  display: block;
+}
+
+.hero-media-stage.is-static .hero-ticker-bar {
+  position: static;
+  margin-top: 24px;
+}
+
+.hero-media-stage.is-static .hero-video-frame {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  border-radius: 28px;
+  left: auto;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-media-stage {
+    height: auto;
+  }
+
+  .hero-media-stage .hero-media-wrapper {
+    position: static;
+    height: auto;
+    display: block;
+  }
+
+  .hero-media-stage .hero-video-frame {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    border-radius: 28px;
+    left: auto;
+    transform: none;
+  }
+
+  .hero-media-stage .hero-video-badge,
+  .hero-media-stage .hero-ticker-bar {
+    opacity: 1;
+  }
+
+  .hero-media-stage .hero-ticker-bar {
+    position: static;
+    margin-top: 24px;
+  }
+}
+
+/* ==========================================================================
+   25. 3D CARD STACK — CAPABILITIES & EXPERTISE
+   Each capability becomes a card that pins in turn, and the next one rides
+   up over it. Cards already passed recede on the Z axis and tilt back, so
+   the stack reads as depth rather than as a flat pile.
+   ========================================================================== */
+
+.service-panels-list {
+  perspective: 1600px;
+  perspective-origin: 50% 30%;
+}
+
+.service-panels-list .service-panel-row {
+  /* --i is the card's index, written by the motion controller. Each card
+     pins slightly lower than the one before so the stack's edges stay
+     visible behind the active card. */
+  --i: 0;
+  --depth: 0;           /* 0 = active card, 1 = fully receded */
+  position: sticky;
+  top: calc(104px + var(--i) * 14px);
+
+  background: var(--bg-panel);
+  border: 1px solid var(--border-light);
+  border-top: 1px solid var(--border-light);
+  border-radius: 28px;
+  padding: 48px;
+  margin-bottom: 28px;
+
+  transform-style: preserve-3d;
+  transform:
+    translate3d(0, calc(var(--depth) * -18px), calc(var(--depth) * -90px))
+    rotateX(calc(var(--depth) * 4deg))
+    scale(calc(1 - var(--depth) * 0.04));
+  transform-origin: 50% 0%;
+
+  box-shadow:
+    0 24px 60px rgba(9, 9, 11, calc(0.10 + var(--depth) * 0.06)),
+    0 2px 6px rgba(9, 9, 11, 0.04);
+  will-change: transform;
+}
+
+/* A veil that deepens as a card falls behind, so text under the stack does
+   not show through the card on top of it. */
+.service-panels-list .service-panel-row::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: var(--bg-canvas);
+  opacity: calc(var(--depth) * 0.55);
+  transition: opacity 0.15s linear;
+}
+
+.service-panels-list .service-panel-row > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* The last card should not leave a gap under the stack. */
+.service-panels-list .service-panel-row:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 1024px) {
+  .service-panels-list .service-panel-row {
+    padding: 36px 28px;
+  }
+}
+
+/* Stacking needs vertical room and a pointer. On phones the cards flow
+   normally — a pinned stack of six tall cards is unusable at that size. */
+@media (max-width: 768px) {
+  .service-panels-list {
+    perspective: none;
+  }
+
+  .service-panels-list .service-panel-row {
+    position: static;
+    transform: none;
+    padding: 28px 22px;
+    margin-bottom: 20px;
+    will-change: auto;
+  }
+
+  .service-panels-list .service-panel-row::after {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .service-panels-list {
+    perspective: none;
+  }
+
+  .service-panels-list .service-panel-row {
+    position: static;
+    transform: none;
+  }
+
+  .service-panels-list .service-panel-row::after {
+    display: none;
+  }
+}
+
+/* The hero track costs 2.6 screens of scrolling before the page moves on.
+   That reads as cinematic on a desktop and as tedious on a phone, so the
+   travel is shorter there — the effect is the same, it just resolves sooner. */
+@media (max-width: 768px) {
+  .hero-media-stage {
+    height: 190vh;
+  }
+}
