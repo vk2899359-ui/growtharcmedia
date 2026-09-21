@@ -14,6 +14,7 @@
 //    Nothing on the page depends on a video succeeding.
 
 import { resolveVideoSource } from './video-sources.js';
+import { testimonials } from './data/testimonials.js';
 
 /* --------------------------------------------------------------------------
    Environment
@@ -79,6 +80,7 @@ window.addEventListener('orientationchange', queueFrame, { passive: true });
    -------------------------------------------------------------------------- */
 
 function boot() {
+  initTestimonials();
   initBlogFilter();
   initResilientVideo();
   initHeaderBehavior();
@@ -825,6 +827,47 @@ function initBlogFilter() {
       if (empty) empty.classList.toggle('hidden', shown > 0);
     });
   });
+}
+
+/* --------------------------------------------------------------------------
+   13. Client testimonials
+   The section ships hidden and only appears once src/data/testimonials.js
+   holds real, attributed quotes. No entries, no section — an empty
+   "what our clients say" heading is worse than not asking the question.
+   -------------------------------------------------------------------------- */
+
+function initTestimonials() {
+  const section = document.getElementById('testimonials');
+  const grid = document.getElementById('testimonialGrid');
+  if (!section || !grid || !testimonials.length) return;
+
+  const esc = s =>
+    String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+  grid.innerHTML = testimonials
+    .map(t => {
+      const stars =
+        typeof t.rating === 'number'
+          ? `<div class="testimonial-stars" aria-label="${t.rating} out of 5">${'\u2605'.repeat(t.rating)}${'\u2606'.repeat(5 - t.rating)}</div>`
+          : '';
+      const company = t.caseStudy
+        ? `<a href="${esc(t.caseStudy)}" class="testimonial-company">${esc(t.company)}</a>`
+        : `<span class="testimonial-company">${esc(t.company)}</span>`;
+
+      return `<figure class="testimonial-card">
+        ${stars}
+        <blockquote class="testimonial-quote">${esc(t.quote)}</blockquote>
+        <figcaption class="testimonial-meta">
+          <span class="testimonial-author">${esc(t.author)}</span>
+          ${t.role ? `<span class="testimonial-role">${esc(t.role)}</span>` : ''}
+          ${company}
+          ${t.via ? `<span class="testimonial-via">via ${esc(t.via)}</span>` : ''}
+        </figcaption>
+      </figure>`;
+    })
+    .join('');
+
+  section.classList.remove('hidden');
 }
 
 /* --------------------------------------------------------------------------
