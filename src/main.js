@@ -1,250 +1,572 @@
-// GrowthArc Media (growtharcmedia.in) Master Interaction & Motion Controller
+// GrowthArc Media (growtharcmedia.in) — Interaction & Motion Controller
+//
+// Design rules this file follows:
+//  • The browser's own wheel scrolling is never hijacked or smoothed.
+//    Scroll position is only *read*; it drives reveals, parallax and crop.
+//  • Media containers never change size on scroll. Scale stays inside
+//    0.98 – 1.01 so composition is stable; movement happens *inside* the
+//    frame (crop/parallax) rather than by growing the frame.
+//  • Every scroll-driven write happens once per animation frame, batched,
+//    using transform/opacity only.
+//  • A video that fails, is blocked, or never loads falls back to its poster.
+//    Nothing on the page depends on a video succeeding.
 
-document.addEventListener('DOMContentLoaded', () => {
-  initPageEntrance();
-  initVideoFallbacks();
+import { resolveVideoSource } from './video-sources.js';
+
+/* --------------------------------------------------------------------------
+   Environment
+   -------------------------------------------------------------------------- */
+
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+const coarsePointer = window.matchMedia('(pointer: coarse)');
+const mobileViewport = window.matchMedia('(max-width: 768px)');
+
+const reduceMotion = () => prefersReducedMotion.matches;
+const isMobile = () => mobileViewport.matches;
+
+const clamp = (v, min, max) => (v < min ? min : v > max ? max : v);
+const lerp = (a, b, t) => a + (b - a) * t;
+
+/* --------------------------------------------------------------------------
+   Single batched scroll loop
+   Handlers register here instead of each adding their own scroll listener.
+   -------------------------------------------------------------------------- */
+
+const frameTasks = [];
+let frameQueued = false;
+let lastScrollY = window.scrollY;
+let scrollVelocity = 0;
+
+function onFrame(fn) {
+  frameTasks.push(fn);
+}
+
+function runFrame() {
+  frameQueued = false;
+  const scrollY = window.scrollY;
+  scrollVelocity = scrollY - lastScrollY;
+  lastScrollY = scrollY;
+
+  const ctx = {
+    scrollY,
+    velocity: scrollVelocity,
+    viewportHeight: window.innerHeight,
+  };
+
+  for (const task of frameTasks) {
+    try {
+      task(ctx);
+    } catch {
+      // One misbehaving effect must never take the page down.
+    }
+  }
+}
+
+function queueFrame() {
+  if (frameQueued) return;
+  frameQueued = true;
+  requestAnimationFrame(runFrame);
+}
+
+window.addEventListener('scroll', queueFrame, { passive: true });
+window.addEventListener('resize', queueFrame, { passive: true });
+window.addEventListener('orientationchange', queueFrame, { passive: true });
+
+/* --------------------------------------------------------------------------
+   Boot
+   -------------------------------------------------------------------------- */
+
+function boot() {
+  initResilientVideo();
   initHeaderBehavior();
-  initHeroMediaZoom();
-  initMarqueeScrollMotion();
+  initRevealChoreography();
+  initHeroMediaMotion();
+  initPanelMediaParallax();
+  initMarqueeMotion();
   initPinnedPortfolioSequence();
-  initStickyServicePanels();
   initEnquiryModal();
   initMobileDrawer();
   initScrollToTop();
   initMagneticButtons();
-});
-
-// Reset page state on pageshow (ensures back/forward navigation never locks up)
-window.addEventListener('pageshow', () => {
-  document.body.style.opacity = '1';
-});
-
-/* 1. Smooth Page Entrance & Reliable Navigation */
-function initPageEntrance() {
-  document.body.style.opacity = '1';
+  queueFrame();
 }
 
-/* 2. Video Fail-Safe Fallback Controller */
-function initVideoFallbacks() {
-  const videos = document.querySelectorAll('video');
+/* --------------------------------------------------------------------------
+   1. Resilient video
+   Lazy playback, offscreen pause, and a poster fallback that always wins.
+   -------------------------------------------------------------------------- */
+
+function initResilientVideo() {
+  const videos = Array.from(document.querySelectorAll('video'));
+  if (!videos.length) return;
 
   videos.forEach(video => {
-    // Attempt playback safely
-    const playPromise = video.play();
-    if (playPromise !== undefined) {
-      playPromise.catch(() => {
-        // Autoplay prevented or error occurring — show poster
-        if (video.poster) {
-          video.style.backgroundImage = `url('${video.poster}')`;
-        }
-      });
+    // Route through the override map so sources can be swapped in one place.
+    const resolved = resolveVideoSource(video.getAttribute('src'));
+    if (resolved && resolved !== video.getAttribute('src')) {
+      video.setAttribute('src', resolved);
     }
 
-    video.addEventListener('error', () => {
-      if (video.poster) {
-        const posterImg = document.createElement('img');
-        posterImg.src = video.poster;
-        posterImg.alt = 'GrowthArc Media Reel';
-        posterImg.className = 'video-fallback-img';
-        if (video.parentNode) {
-          video.parentNode.replaceChild(posterImg, video);
-        }
-      }
-    });
+    // The poster is painted as a background too, so the frame is never empty
+    // while the video is still downloading — or if it never arrives at all.
+    if (video.poster) {
+      video.style.backgroundImage = `url("${video.poster}")`;
+      video.style.backgroundSize = 'cover';
+      video.style.backgroundPosition = 'center';
+    }
+
+    video.addEventListener('error', () => degradeToPoster(video), { once: true });
   });
+
+  const eager = videos.filter(v => v.hasAttribute('data-eager-video'));
+  const lazy = videos.filter(v => !v.hasAttribute('data-eager-video'));
+
+  eager.forEach(safePlay);
+
+  if (!('IntersectionObserver' in window)) {
+    // No observer support: just play everything and let the posters cover gaps.
+    lazy.forEach(safePlay);
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        const video = entry.target;
+        if (entry.isIntersecting) {
+          if (video.preload === 'none') video.preload = 'auto';
+          safePlay(video);
+        } else if (!video.paused) {
+          video.pause();
+        }
+      });
+    },
+    { rootMargin: '200px 0px', threshold: 0.01 }
+  );
+
+  lazy.forEach(v => observer.observe(v));
 }
 
-/* 3. Header Behavior & Scroll Background */
+function safePlay(video) {
+  if (reduceMotion()) return; // honour the OS setting: hold on the poster frame
+  const attempt = video.play();
+  if (attempt && typeof attempt.catch === 'function') {
+    attempt.catch(() => {
+      // Autoplay refused or the file is unreachable — the poster stands in.
+    });
+  }
+}
+
+function degradeToPoster(video) {
+  if (!video.poster || !video.parentNode) return;
+  const img = document.createElement('img');
+  img.src = video.poster;
+  img.alt = video.getAttribute('aria-label') || 'GrowthArc Media';
+  img.className = `video-fallback-img ${video.className}`.trim();
+  img.loading = 'lazy';
+  img.decoding = 'async';
+  video.parentNode.replaceChild(img, video);
+}
+
+/* --------------------------------------------------------------------------
+   2. Header
+   -------------------------------------------------------------------------- */
+
 function initHeaderBehavior() {
   const header = document.getElementById('siteHeader');
   if (!header) return;
 
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 40) {
-      header.classList.add('scrolled');
-    } else {
-      header.classList.remove('scrolled');
+  let scrolled = false;
+  onFrame(({ scrollY }) => {
+    const next = scrollY > 40;
+    if (next !== scrolled) {
+      scrolled = next;
+      header.classList.toggle('scrolled', next);
     }
-  }, { passive: true });
+  });
 }
 
-/* 4. Hero Video Expansion on Scroll (Strict Controlled Scale: 0.98 -> 1.00 -> 1.01 MAX) */
-function initHeroMediaZoom() {
-  const heroStage = document.getElementById('heroVideoStage');
-  const videoFrame = heroStage ? heroStage.querySelector('.hero-video-frame') : null;
-  const videoPlayer = videoFrame ? videoFrame.querySelector('video') : null;
+/* --------------------------------------------------------------------------
+   3. Reveal choreography
+   Not a blanket fade. Each element type gets the reveal that suits it:
+   headings unmask upward, body copy rises, media unmasks by clip-path,
+   and list/grid children stagger.
+   -------------------------------------------------------------------------- */
 
-  if (!heroStage || !videoFrame) return;
+const REVEAL_TARGETS = [
+  ['.editorial-heading, .case-hero-title, .cta-massive-statement, .hero-display-heading, .service-title', 'reveal-mask'],
+  ['.section-label, .section-subheading, .hero-statement, .case-hero-tagline, .service-lead, .section-subtext, .editorial-prose p', 'reveal-rise'],
+  ['.hero-video-frame, .service-video-frame, .sticky-media-panel, .method-video-frame, .case-hero-image-frame, .portfolio-image-frame, .portfolio-image-wrapper', 'reveal-unmask'],
+  ['.capability-list li, .method-step-card, .metric-card, .network-node, .service-item-card, .portfolio-item-card, .footer-col', 'reveal-stagger'],
+];
 
-  window.addEventListener('scroll', () => {
-    const rect = heroStage.getBoundingClientRect();
-    const windowHeight = window.innerHeight;
+function initRevealChoreography() {
+  if (reduceMotion() || !('IntersectionObserver' in window)) return;
 
-    if (rect.top < windowHeight && rect.bottom > 0) {
-      const progress = Math.max(0, Math.min(1, (windowHeight - rect.top) / (windowHeight + rect.height)));
-      // Controlled clamp scale: 0.98 to 1.01 MAX (1-2% max change, layout remains completely stable)
-      const scale = 0.98 + progress * 0.02;
-      videoFrame.style.transform = `scale(${scale})`;
+  const seen = new Set();
+  const elements = [];
 
-      // Subtle inner Y-parallax (movement inside container without container growth)
-      if (videoPlayer) {
-        const translateY = (progress - 0.5) * 15;
-        videoPlayer.style.transform = `translateY(${translateY}px)`;
-      }
+  REVEAL_TARGETS.forEach(([selector, variant]) => {
+    document.querySelectorAll(selector).forEach(el => {
+      if (seen.has(el)) return;
+      seen.add(el);
+      el.classList.add('reveal', variant);
+      elements.push(el);
+    });
+  });
+
+  if (!elements.length) return;
+
+  // Stagger is scoped to siblings so a long list cascades rather than
+  // every element on the page sharing one global counter.
+  const groupCounters = new Map();
+  elements.forEach(el => {
+    if (!el.classList.contains('reveal-stagger')) return;
+    const parent = el.parentElement;
+    const index = groupCounters.get(parent) || 0;
+    groupCounters.set(parent, index + 1);
+    el.style.setProperty('--reveal-delay', `${Math.min(index, 7) * 70}ms`);
+  });
+
+  const pending = new Set(elements);
+
+  const reveal = el => {
+    el.classList.add('is-revealed');
+    pending.delete(el);
+    observer.unobserve(el);
+  };
+
+  const observer = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) reveal(entry.target);
+      });
+    },
+    { rootMargin: '0px 0px -12% 0px', threshold: 0.15 }
+  );
+
+  elements.forEach(el => observer.observe(el));
+
+  // Safety sweep.
+  //
+  // An IntersectionObserver only reports states the browser actually samples.
+  // A fast flick, a scrollbar drag or an in-page anchor jump can move the
+  // viewport past an element between two frames, so it is never seen as
+  // intersecting and would stay invisible forever. This sweep reveals
+  // anything the viewport has reached or passed, whatever the observer saw.
+  let lastSweep = 0;
+  onFrame(({ viewportHeight }) => {
+    if (!pending.size) return;
+    const now = performance.now();
+    if (now - lastSweep < 120) return;
+    lastSweep = now;
+
+    pending.forEach(el => {
+      const rect = el.getBoundingClientRect();
+      // Entered the viewport, or already scrolled above it.
+      if (rect.top < viewportHeight * 0.92) reveal(el);
+    });
+  });
+
+  // Anything already on screen at load reveals immediately — no blank hero.
+  requestAnimationFrame(() => {
+    const vh = window.innerHeight;
+    pending.forEach(el => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < vh && rect.bottom > 0) reveal(el);
+    });
+  });
+}
+
+/* --------------------------------------------------------------------------
+   4. Hero media motion
+   The frame itself moves between 0.98 and 1.01 — perceptible, never
+   disruptive. All the visible travel happens *inside* the frame, as crop.
+   -------------------------------------------------------------------------- */
+
+const HERO_SCALE_MIN = 0.98;
+const HERO_SCALE_MAX = 1.01;
+
+function initHeroMediaMotion() {
+  const stage = document.getElementById('heroVideoStage');
+  const frame = stage && stage.querySelector('.hero-video-frame');
+  if (!stage || !frame) return;
+  if (reduceMotion()) return;
+
+  const media = frame.querySelector('video, img');
+  // Inner media is oversized slightly so it can travel without exposing an edge.
+  if (media) media.style.willChange = 'transform';
+
+  let renderedScale = HERO_SCALE_MIN;
+
+  onFrame(({ viewportHeight }) => {
+    const rect = stage.getBoundingClientRect();
+    if (rect.bottom < -200 || rect.top > viewportHeight + 200) return;
+
+    // 0 while the frame is entering, 1 once it has settled in view.
+    const entering = clamp((viewportHeight - rect.top) / (viewportHeight * 0.85), 0, 1);
+    // Rises to 1 mid-viewport, easing back as the frame leaves.
+    const centered = 1 - Math.abs((rect.top + rect.height / 2) - viewportHeight / 2) / viewportHeight;
+
+    const target = HERO_SCALE_MIN + entering * (HERO_SCALE_MAX - HERO_SCALE_MIN);
+    renderedScale = lerp(renderedScale, clamp(target, HERO_SCALE_MIN, HERO_SCALE_MAX), 0.18);
+    frame.style.transform = `scale(${renderedScale.toFixed(4)})`;
+
+    if (media) {
+      // Crop travel only — the frame clips it, so nothing grows or shifts layout.
+      const travel = isMobile() ? 8 : 16;
+      const offset = (clamp(centered, 0, 1) - 0.5) * travel;
+      media.style.transform = `translate3d(0, ${offset.toFixed(2)}px, 0) scale(1.06)`;
     }
-  }, { passive: true });
+  });
 }
 
-/* 4. Marquee Velocity Scroll Motion */
-function initMarqueeScrollMotion() {
-  const marqueeTrack = document.getElementById('workMarqueeTrack');
-  if (!marqueeTrack) return;
+/* --------------------------------------------------------------------------
+   5. Panel & service media parallax
+   Same rule: subtle inner movement, container untouched.
+   -------------------------------------------------------------------------- */
 
-  let currentTranslate = 0;
-  let lastScrollY = window.scrollY;
+function initPanelMediaParallax() {
+  if (reduceMotion() || isMobile()) return;
 
-  window.addEventListener('scroll', () => {
-    const currentScrollY = window.scrollY;
-    const delta = currentScrollY - lastScrollY;
-    lastScrollY = currentScrollY;
+  const frames = Array.from(
+    document.querySelectorAll('.service-video-frame, .sticky-media-panel, .method-video-frame')
+  );
+  if (!frames.length) return;
 
-    // Shift marquee relative to scroll delta
-    currentTranslate -= delta * 0.4;
-    
-    // Loop bounds
-    if (currentTranslate < -1000) currentTranslate = 0;
-    if (currentTranslate > 0) currentTranslate = -1000;
+  const pairs = frames
+    .map(frame => ({ frame, media: frame.querySelector('video, img') }))
+    .filter(p => p.media);
 
-    marqueeTrack.style.transform = `translate3d(${currentTranslate}px, 0, 0)`;
-  }, { passive: true });
+  pairs.forEach(({ media }) => {
+    media.style.willChange = 'transform';
+  });
+
+  onFrame(({ viewportHeight }) => {
+    pairs.forEach(({ frame, media }) => {
+      const rect = frame.getBoundingClientRect();
+      if (rect.bottom < -100 || rect.top > viewportHeight + 100) return;
+
+      const progress = clamp((viewportHeight - rect.top) / (viewportHeight + rect.height), 0, 1);
+      const offset = (progress - 0.5) * 24; // ±12px of crop travel
+      media.style.transform = `translate3d(0, ${offset.toFixed(2)}px, 0) scale(1.08)`;
+    });
+  });
 }
 
-/* 5. PINNED PORTFOLIO SCROLL SEQUENCE (300vh Pinned Viewport) */
+/* --------------------------------------------------------------------------
+   6. Marquee
+   Continuous drift with a scroll-velocity nudge, wrapped on the measured
+   group width so it loops seamlessly instead of snapping at a fixed offset.
+   -------------------------------------------------------------------------- */
+
+function initMarqueeMotion() {
+  const track = document.getElementById('workMarqueeTrack');
+  if (!track) return;
+
+  const group = track.querySelector('.work-marquee-group');
+  if (!group) return;
+
+  if (reduceMotion()) {
+    track.style.transform = 'translate3d(0, 0, 0)';
+    return;
+  }
+
+  let groupWidth = group.getBoundingClientRect().width || 1;
+  let offset = 0;
+  let running = true;
+
+  const remeasure = () => {
+    groupWidth = group.getBoundingClientRect().width || groupWidth;
+  };
+  window.addEventListener('resize', remeasure, { passive: true });
+
+  // Pause the marquee entirely when it is nowhere near the viewport.
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(
+      entries => entries.forEach(e => { running = e.isIntersecting; }),
+      { rootMargin: '150px 0px' }
+    );
+    io.observe(track);
+  }
+
+  const baseSpeed = isMobile() ? 0.35 : 0.6;
+
+  const tick = () => {
+    if (running) {
+      offset -= baseSpeed + scrollVelocity * 0.25;
+      // Wrap within one group so the duplicate group hides the seam.
+      offset = ((offset % groupWidth) + groupWidth) % groupWidth - groupWidth;
+      track.style.transform = `translate3d(${offset.toFixed(2)}px, 0, 0)`;
+    }
+    requestAnimationFrame(tick);
+  };
+
+  requestAnimationFrame(() => {
+    remeasure();
+    tick();
+  });
+}
+
+/* --------------------------------------------------------------------------
+   7. Pinned portfolio sequence
+   Scroll advances the sequence; it never fights the wheel. Below 768px the
+   stylesheet unpins the section into a normal stacked list, so this does
+   nothing there.
+   -------------------------------------------------------------------------- */
+
 function initPinnedPortfolioSequence() {
-  const sequenceSection = document.getElementById('pinnedPortfolioSection');
-  if (!sequenceSection) return;
+  const section = document.getElementById('pinnedPortfolioSection');
+  if (!section) return;
 
-  const slides = sequenceSection.querySelectorAll('.portfolio-slide');
-  const counterEl = sequenceSection.querySelector('.sequence-counter');
-  const progressBar = sequenceSection.querySelector('.sequence-progress-inner');
-  const countTotal = slides.length;
-
+  const slides = Array.from(section.querySelectorAll('.portfolio-slide'));
   if (!slides.length) return;
 
-  window.addEventListener('scroll', () => {
-    const rect = sequenceSection.getBoundingClientRect();
-    const totalHeight = sequenceSection.offsetHeight - window.innerHeight;
-    
-    if (totalHeight <= 0) return;
+  const counter = section.querySelector('.sequence-counter');
+  const progress = section.querySelector('.sequence-progress-inner');
+  const total = slides.length;
+  const pad = n => String(n).padStart(2, '0');
 
-    // Relative progress through the pinned section (0 to 1)
-    const scrollProgress = Math.max(0, Math.min(1, -rect.top / totalHeight));
+  let lastActive = -1;
 
-    // Determine active index
-    const rawIndex = scrollProgress * countTotal;
-    const activeIndex = Math.min(countTotal - 1, Math.floor(rawIndex));
+  const clearInlineStyles = () => {
+    slides.forEach(slide => {
+      slide.style.opacity = '';
+      slide.style.transform = '';
+      slide.style.pointerEvents = '';
+    });
+  };
 
-    if (progressBar) {
-      progressBar.style.width = `${scrollProgress * 100}%`;
+  onFrame(({ viewportHeight }) => {
+    // Stacked list layout on small screens — leave the DOM alone.
+    if (isMobile()) {
+      if (lastActive !== -1) {
+        clearInlineStyles();
+        lastActive = -1;
+      }
+      return;
     }
 
-    if (counterEl) {
-      counterEl.textContent = `0${activeIndex + 1} / 0${countTotal}`;
+    const rect = section.getBoundingClientRect();
+    const scrollable = section.offsetHeight - viewportHeight;
+    if (scrollable <= 0) return;
+
+    const sequenceProgress = clamp(-rect.top / scrollable, 0, 1);
+    const raw = sequenceProgress * total;
+    const active = clamp(Math.floor(raw), 0, total - 1);
+
+    if (progress) progress.style.width = `${(sequenceProgress * 100).toFixed(2)}%`;
+
+    if (active !== lastActive) {
+      lastActive = active;
+      if (counter) counter.textContent = `${pad(active + 1)} / ${pad(total)}`;
+
+      slides.forEach((slide, i) => {
+        const isActive = i === active;
+        const isPast = i < active;
+        slide.classList.toggle('active', isActive);
+        slide.style.opacity = isActive ? '1' : '0';
+        slide.style.pointerEvents = isActive ? 'auto' : 'none';
+        slide.style.transform = isActive
+          ? 'scale(1) translate3d(0, 0, 0)'
+          : isPast
+            ? 'scale(0.94) translate3d(0, -36px, 0)'
+            : 'scale(0.96) translate3d(0, 48px, 0)';
+        slide.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+        // Keep offscreen slides out of the tab order.
+        slide.querySelectorAll('a').forEach(a => {
+          if (isActive) a.removeAttribute('tabindex');
+          else a.setAttribute('tabindex', '-1');
+        });
+      });
     }
 
-    slides.forEach((slide, idx) => {
-      const slideProgress = rawIndex - idx;
-
-      if (idx === activeIndex) {
-        // Active slide scaling in
-        slide.style.opacity = '1';
-        slide.style.transform = 'scale(1) translateY(0)';
-        slide.style.pointerEvents = 'all';
-        slide.classList.add('active');
-      } else if (idx < activeIndex) {
-        // Past slide sliding out
-        slide.style.opacity = '0';
-        slide.style.transform = 'scale(0.88) translateY(-40px)';
-        slide.style.pointerEvents = 'none';
-        slide.classList.remove('active');
-      } else {
-        // Future slide waiting below
-        slide.style.opacity = '0';
-        slide.style.transform = 'scale(0.92) translateY(60px)';
-        slide.style.pointerEvents = 'none';
-        slide.classList.remove('active');
-      }
-    });
-  }, { passive: true });
+    // Within-slide drift: the active card eases as its share of scroll elapses.
+    const activeSlide = slides[active];
+    if (activeSlide) {
+      const within = clamp(raw - active, 0, 1);
+      const drift = (within - 0.5) * 14;
+      const media = activeSlide.querySelector('.slide-media-img');
+      // Written as a custom property so the stylesheet's hover zoom still composes.
+      if (media) media.style.setProperty('--drift-y', `${drift.toFixed(2)}px`);
+    }
+  });
 }
 
-/* 6. Sticky Service Panels Transitions */
-function initStickyServicePanels() {
-  const serviceRows = document.querySelectorAll('.service-panel-row');
-  if (!serviceRows.length) return;
+/* --------------------------------------------------------------------------
+   8. Enquiry modal
+   -------------------------------------------------------------------------- */
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('in-view');
-      }
-    });
-  }, { threshold: 0.25 });
-
-  serviceRows.forEach(row => observer.observe(row));
-}
-
-/* 7. Interactive Lead Enquiry Modal */
 function initEnquiryModal() {
   const modal = document.getElementById('enquiryModal');
+  if (!modal) return;
+
   const closeBtn = document.getElementById('modalCloseBtn');
   const openBtns = document.querySelectorAll('.open-modal-btn');
   const serviceInput = document.getElementById('selectedServiceInput');
   const form = document.getElementById('enquiryForm');
   const successMsg = document.getElementById('formSuccessMessage');
+  let lastFocused = null;
+  let successTimer = null;
 
-  if (!modal) return;
+  const openModal = btn => {
+    lastFocused = btn;
+    if (serviceInput) {
+      serviceInput.value = btn.getAttribute('data-service') || 'General Strategy Inquiry';
+    }
 
-  openBtns.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      const service = btn.getAttribute('data-service') || 'General Strategy Inquiry';
-      if (serviceInput) serviceInput.value = service;
-      
-      modal.classList.add('active');
-      modal.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
+    // The drawer and the modal both lock scrolling — never leave both open.
+    const drawer = document.getElementById('mobileDrawer');
+    if (drawer) drawer.classList.remove('active');
 
-      if (form) form.style.display = 'flex';
-      if (successMsg) successMsg.classList.add('hidden');
-    });
-  });
+    modal.classList.add('active');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+
+    if (form) form.style.display = '';
+    if (successMsg) successMsg.classList.add('hidden');
+
+    const firstField = modal.querySelector('input:not([readonly]), textarea, select');
+    if (firstField) firstField.focus({ preventScroll: true });
+  };
 
   const closeModal = () => {
+    if (successTimer) {
+      clearTimeout(successTimer);
+      successTimer = null;
+    }
     modal.classList.remove('active');
     modal.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
+    if (lastFocused && document.contains(lastFocused)) {
+      lastFocused.focus({ preventScroll: true });
+    }
   };
+
+  openBtns.forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.preventDefault();
+      openModal(btn);
+    });
+  });
 
   if (closeBtn) closeBtn.addEventListener('click', closeModal);
 
-  modal.addEventListener('click', (e) => {
+  modal.addEventListener('click', e => {
     if (e.target === modal) closeModal();
   });
 
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal.classList.contains('active')) {
-      closeModal();
-    }
+  document.addEventListener('keydown', e => {
+    if (e.key !== 'Escape' || !modal.classList.contains('active')) return;
+    closeModal();
   });
 
   if (form) {
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', e => {
       e.preventDefault();
       form.style.display = 'none';
       if (successMsg) successMsg.classList.remove('hidden');
-
-      setTimeout(() => {
+      successTimer = setTimeout(() => {
         closeModal();
         form.reset();
       }, 3500);
@@ -252,72 +574,113 @@ function initEnquiryModal() {
   }
 }
 
-/* 8. Mobile Navigation Drawer */
+/* --------------------------------------------------------------------------
+   9. Mobile drawer
+   -------------------------------------------------------------------------- */
+
 function initMobileDrawer() {
   const drawer = document.getElementById('mobileDrawer');
-  const toggleBtn = document.getElementById('mobileMenuToggle');
-  const closeBtn = document.getElementById('mobileMenuClose');
-  const links = document.querySelectorAll('.mobile-link');
-
   if (!drawer) return;
 
-  if (toggleBtn) {
-    toggleBtn.addEventListener('click', () => {
-      drawer.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    });
-  }
+  const toggleBtn = document.getElementById('mobileMenuToggle');
+  const closeBtn = document.getElementById('mobileMenuClose');
 
   const closeDrawer = () => {
     drawer.classList.remove('active');
     document.body.style.overflow = '';
   };
 
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', () => {
+      drawer.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      const firstLink = drawer.querySelector('.mobile-link');
+      if (firstLink) firstLink.focus({ preventScroll: true });
+    });
+  }
+
   if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
 
-  links.forEach(link => {
+  drawer.querySelectorAll('.mobile-link').forEach(link => {
     link.addEventListener('click', closeDrawer);
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && drawer.classList.contains('active')) closeDrawer();
+  });
+
+  // Rotating to desktop width must not leave the body scroll-locked.
+  mobileViewport.addEventListener('change', e => {
+    if (!e.matches) closeDrawer();
   });
 }
 
-/* 9. Scroll To Top Button */
+/* --------------------------------------------------------------------------
+   10. Scroll to top
+   -------------------------------------------------------------------------- */
+
 function initScrollToTop() {
   const topBtn = document.getElementById('scrollTopBtn');
   if (!topBtn) return;
 
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 500) {
-      topBtn.style.opacity = '1';
-      topBtn.style.pointerEvents = 'all';
-    } else {
-      topBtn.style.opacity = '0';
-      topBtn.style.pointerEvents = 'none';
-    }
-  }, { passive: true });
+  topBtn.style.opacity = '0';
+  topBtn.style.pointerEvents = 'none';
+
+  let visible = false;
+  onFrame(({ scrollY }) => {
+    const next = scrollY > 500;
+    if (next === visible) return;
+    visible = next;
+    topBtn.style.opacity = next ? '1' : '0';
+    topBtn.style.pointerEvents = next ? 'auto' : 'none';
+  });
 
   topBtn.addEventListener('click', () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
+    window.scrollTo({ top: 0, behavior: reduceMotion() ? 'auto' : 'smooth' });
   });
 }
 
-/* 10. Magnetic Button Hover Effects */
+/* --------------------------------------------------------------------------
+   11. Magnetic buttons
+   Pointer-driven only, and expressed through a CSS variable so it composes
+   with the stylesheet's own hover lift instead of overwriting it.
+   -------------------------------------------------------------------------- */
+
 function initMagneticButtons() {
-  const btns = document.querySelectorAll('.btn-cta, .fab-btn');
+  if (reduceMotion() || coarsePointer.matches) return;
 
-  btns.forEach(btn => {
-    btn.addEventListener('mousemove', (e) => {
+  document.querySelectorAll('.btn-cta, .fab-btn').forEach(btn => {
+    btn.addEventListener('mousemove', e => {
       const rect = btn.getBoundingClientRect();
-      const x = e.clientX - rect.left - rect.width / 2;
-      const y = e.clientY - rect.top - rect.height / 2;
-
-      btn.style.transform = `translate3d(${x * 0.25}px, ${y * 0.25}px, 0)`;
+      const x = (e.clientX - rect.left - rect.width / 2) * 0.18;
+      const y = (e.clientY - rect.top - rect.height / 2) * 0.18;
+      btn.style.setProperty('--magnet-x', `${x.toFixed(2)}px`);
+      btn.style.setProperty('--magnet-y', `${y.toFixed(2)}px`);
     });
 
     btn.addEventListener('mouseleave', () => {
-      btn.style.transform = 'translate3d(0, 0, 0)';
+      btn.style.setProperty('--magnet-x', '0px');
+      btn.style.setProperty('--magnet-y', '0px');
     });
   });
 }
+
+/* --------------------------------------------------------------------------
+   Bootstrap
+   Kept at the end of the module: `boot()` runs during module evaluation when
+   the document has already parsed, so every declaration it touches must
+   already be initialised.
+   -------------------------------------------------------------------------- */
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', boot, { once: true });
+} else {
+  boot();
+}
+
+// Restoring from the bfcache must never leave the page dimmed or locked.
+window.addEventListener('pageshow', () => {
+  document.body.style.opacity = '1';
+  document.body.style.overflow = '';
+  queueFrame();
+});

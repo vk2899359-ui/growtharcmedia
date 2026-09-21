@@ -1465,3 +1465,818 @@ video {
     scroll-behavior: auto !important;
   }
 }
+
+/* ==========================================================================
+   17. MISSING COMPONENT LAYER
+   These class names were already used throughout the markup but had no rules,
+   which left the marquee, portfolio grids, metrics bands and case-study
+   galleries unstyled. Rules below match the existing editorial language —
+   no new design language is introduced.
+   ========================================================================== */
+
+/* Anchor targets must clear the fixed 85px header */
+section[id], main[id], div[id] {
+  scroll-margin-top: 110px;
+}
+
+/* --- Header / logo --- */
+.logo-meta {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.icon-arrow,
+.icon-scroll {
+  transition: transform 0.25s var(--ease-cinematic);
+}
+
+.btn-cta:hover .icon-arrow {
+  transform: translateX(4px);
+}
+
+.scroll-link:hover .icon-scroll {
+  transform: translateY(3px);
+}
+
+.underline-link {
+  border-bottom: 1px solid currentColor;
+}
+
+.tagline-text {
+  display: inline-block;
+}
+
+/* --- Mobile drawer extras --- */
+.mobile-overlay-footer {
+  margin-top: auto;
+  padding-top: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.mobile-socials {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 1.4rem;
+  color: var(--text-muted);
+}
+
+.mobile-socials a:hover {
+  color: var(--accent-pink);
+}
+
+/* --- Generic section header block --- */
+.section-header-block {
+  max-width: 900px;
+}
+
+.section-header-block.text-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.section-subheading {
+  font-size: clamp(1rem, 1.6vw, 1.25rem);
+  font-weight: 800;
+  letter-spacing: 2px;
+  margin-bottom: 0.75rem;
+}
+
+.action-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+/* --- Work marquee (was completely unstyled) --- */
+.work-marquee-container {
+  overflow: hidden;
+  border-top: 1px solid var(--border-light);
+  border-bottom: 1px solid var(--border-light);
+  background: var(--bg-canvas);
+}
+
+.work-marquee-track {
+  display: flex;
+  width: max-content;
+  white-space: nowrap;
+  will-change: transform;
+}
+
+.work-marquee-group {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  padding-right: 3rem;
+  font-size: clamp(2.6rem, 7vw, 6rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  color: var(--text-black);
+}
+
+/* --- Pinned portfolio sequence chrome --- */
+.sequence-header {
+  width: 100%;
+}
+
+.sequence-label {
+  font-size: 0.85rem;
+  letter-spacing: 3px;
+}
+
+.sequence-counter {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.slide-meta-row {
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.slide-title {
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--text-black);
+}
+
+.slide-title a:hover {
+  color: var(--accent-pink);
+}
+
+.slide-category {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.portfolio-full-link-row {
+  width: 100%;
+}
+
+/* --- Portfolio grid used on the service pages --- */
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2.5rem;
+}
+
+.portfolio-image-frame {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid var(--border-light);
+  background: var(--bg-dark-contrast);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+.portfolio-image-frame img,
+.portfolio-image-frame video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--ease-cinematic);
+}
+
+.portfolio-grid a:hover .portfolio-image-frame img {
+  transform: scale(1.03);
+}
+
+.portfolio-card-info,
+.portfolio-meta {
+  margin-top: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* --- Service list cards (RupeeNest case study) --- */
+.services-list-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+}
+
+.service-item-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-light);
+  border-radius: 24px;
+  padding: 2rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
+  transition: var(--transition-fast);
+}
+
+.service-item-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--accent-pink);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+.service-content-col,
+.service-media-col {
+  min-width: 0;
+}
+
+/* --- Metrics band --- */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2rem;
+}
+
+.metric-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-light);
+  border-radius: 24px;
+  padding: 2.25rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
+}
+
+.metric-number {
+  font-size: clamp(2.6rem, 5vw, 3.6rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.metric-label {
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* --- Case study extras --- */
+.case-hero-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.case-category-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 18px;
+  border-radius: 40px;
+  border: 1px solid var(--border-light);
+  background: var(--bg-panel);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.case-gallery-grid figure,
+.case-gallery-grid > div {
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+.case-gallery-grid img,
+.case-gallery-grid video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.project-nav-section {
+  background: var(--bg-canvas);
+}
+
+/* --- Method video banner --- */
+.method-video-banner {
+  width: 100%;
+}
+
+/* --- Global footprint nodes --- */
+.node-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.node-india,
+.node-uae,
+.node-usa {
+  flex: 1 1 260px;
+  max-width: 360px;
+}
+
+/* --- Footer --- */
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- Modal --- */
+.modal-header {
+  padding-right: 2.5rem;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* ==========================================================================
+   18. UTILITY LAYER
+   The markup was authored against utility class names (mt-40, flex,
+   text-4xl, uppercase …) that were never defined anywhere in the project.
+   This is a minimal hand-rolled implementation of exactly the utilities the
+   pages use — no framework, no unused output.
+   Spacing convention follows the markup: values <= 12 are rem-scale
+   (0.25rem steps), values >= 20 are literal pixels.
+   ========================================================================== */
+
+/* Display & box */
+.block { display: block; }
+.inline-block { display: inline-block; }
+.flex { display: flex; }
+.grid { display: grid; }
+.flex-col { flex-direction: column; }
+.items-center { align-items: center; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.whitespace-nowrap { white-space: nowrap; }
+
+.grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+
+.gap-4 { gap: 1rem; }
+.gap-8 { gap: 2rem; }
+.gap-12 { gap: 3rem; }
+
+.w-full { width: 100%; }
+.h-full { height: 100%; }
+.object-cover { object-fit: cover; }
+.p-8 { padding: 2rem; }
+.rounded-2xl { border-radius: 1rem; }
+.border { border-width: 1px; border-style: solid; border-color: var(--border-light); }
+/* Dark-theme leftover — remapped to the light canvas border token */
+.border-gray-800 { border-color: var(--border-light); }
+
+/* Typography */
+.text-xs { font-size: 0.75rem; }
+.text-lg { font-size: 1.125rem; }
+.text-xl { font-size: 1.25rem; }
+.text-2xl { font-size: 1.5rem; }
+.text-3xl { font-size: 1.875rem; }
+.text-4xl { font-size: clamp(1.75rem, 3vw, 2.25rem); }
+.text-7xl { font-size: clamp(2.6rem, 7vw, 4.5rem); }
+
+.font-mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+.font-semibold { font-weight: 600; }
+.font-bold { font-weight: 700; }
+.font-extrabold { font-weight: 800; }
+.font-black { font-weight: 900; }
+
+.uppercase { text-transform: uppercase; }
+.text-left { text-align: left; }
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+
+.text-black { color: var(--text-black); }
+.text-muted { color: var(--text-muted); }
+/* Dark-theme leftover — remapped so body copy stays readable on light canvas */
+.text-gray-400 { color: var(--text-muted); }
+
+.bg-canvas { background-color: var(--bg-canvas); }
+.bg-panel { background-color: var(--bg-panel); }
+
+.antialiased { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+.selection-highlight::selection { background: var(--accent-pink); color: #fff; }
+
+/* Spacing — rem scale */
+.mt-1 { margin-top: 0.25rem; }
+.mt-6 { margin-top: 1.5rem; }
+.mt-8 { margin-top: 2rem; }
+.mt-12 { margin-top: 3rem; }
+.mb-2 { margin-bottom: 0.5rem; }
+.mb-4 { margin-bottom: 1rem; }
+.mb-8 { margin-bottom: 2rem; }
+.mb-12 { margin-bottom: 3rem; }
+.ml-1 { margin-left: 0.25rem; }
+.ml-2 { margin-left: 0.5rem; }
+.ml-4 { margin-left: 1rem; }
+.mr-2 { margin-right: 0.5rem; }
+
+/* Spacing — pixel scale */
+.mt-20 { margin-top: 20px; }
+.mt-30 { margin-top: 30px; }
+.mt-40 { margin-top: 40px; }
+.mt-60 { margin-top: 60px; }
+.mt-80 { margin-top: 80px; }
+.mb-20 { margin-bottom: 20px; }
+.mb-30 { margin-bottom: 30px; }
+.mb-40 { margin-bottom: 40px; }
+.mb-80 { margin-bottom: 80px; }
+.py-40 { padding-top: 40px; padding-bottom: 40px; }
+.py-60 { padding-top: 60px; padding-bottom: 60px; }
+
+/* Responsive variants actually used in the markup */
+@media (min-width: 768px) {
+  .md\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .md\:text-9xl { font-size: clamp(4.5rem, 9vw, 7rem); }
+}
+
+@media (max-width: 768px) {
+  .mb-80 { margin-bottom: 48px; }
+  .mt-80 { margin-top: 48px; }
+  .mt-60 { margin-top: 40px; }
+  .section-editorial { padding: 90px 0; }
+  .section-cta { padding: 100px 0; }
+}
+
+/* ==========================================================================
+   19. MOTION LAYER
+   Reveal states and the containment rules that keep media motion from ever
+   changing layout. Elements are visible by default; the controller adds
+   `.reveal` only when motion is allowed, so a JS failure leaves the page
+   fully readable.
+   ========================================================================== */
+
+.reveal {
+  --reveal-delay: 0ms;
+}
+
+/* Headings unmask upward from behind their own baseline. */
+.reveal-mask {
+  /* Horizontal slack: display type frequently overhangs its own box, and a
+     flush inset() would shave the last glyph. Only the vertical edge animates. */
+  clip-path: inset(0 -15% 105% -5%);
+  transform: translate3d(0, 0.22em, 0);
+  opacity: 0;
+  transition:
+    clip-path 1s var(--ease-cinematic) var(--reveal-delay),
+    transform 1s var(--ease-cinematic) var(--reveal-delay),
+    opacity 0.6s ease var(--reveal-delay);
+  will-change: clip-path, transform;
+}
+
+/* Supporting copy rises into place. */
+.reveal-rise {
+  opacity: 0;
+  transform: translate3d(0, 22px, 0);
+  transition:
+    opacity 0.75s var(--ease-cinematic) var(--reveal-delay),
+    transform 0.75s var(--ease-cinematic) var(--reveal-delay);
+  will-change: transform, opacity;
+}
+
+/* Media frames unmask from the bottom edge — the frame is revealed, the
+   media inside it is never scaled up to do it. */
+.reveal-unmask {
+  clip-path: inset(0 0 100% 0);
+  opacity: 0;
+  transition:
+    clip-path 1.15s var(--ease-cinematic) var(--reveal-delay),
+    opacity 0.5s ease var(--reveal-delay);
+  will-change: clip-path;
+}
+
+/* Repeating items cascade rather than arriving as one block. */
+.reveal-stagger {
+  opacity: 0;
+  transform: translate3d(0, 26px, 0);
+  transition:
+    opacity 0.65s var(--ease-cinematic) var(--reveal-delay),
+    transform 0.65s var(--ease-cinematic) var(--reveal-delay);
+  will-change: transform, opacity;
+}
+
+.reveal.is-revealed {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  clip-path: inset(0 0 0 0);
+}
+
+/* Masked headings settle outside their own box so ascenders, descenders and
+   the final glyph are never trimmed. */
+.reveal-mask.is-revealed {
+  clip-path: inset(-10% -15% -15% -5%);
+}
+
+/* Clear the compositor hints once the element has settled. */
+.reveal.is-revealed {
+  will-change: auto;
+}
+
+/* Media crop containers: the frame clips, the media travels inside it.
+   This is what keeps parallax from ever resizing a container. */
+.hero-video-frame,
+.service-video-frame,
+.sticky-media-panel,
+.method-video-frame,
+.slide-media-wrapper {
+  overflow: hidden;
+  contain: paint;
+}
+
+.sticky-media-panel video,
+.sticky-media-panel img,
+.method-video-frame video,
+.method-video-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  will-change: transform;
+}
+
+.sticky-media-panel {
+  aspect-ratio: 4 / 5;
+}
+
+@media (max-width: 992px) {
+  .sticky-media-panel {
+    aspect-ratio: 16 / 10;
+  }
+}
+
+/* Magnetic buttons compose with the stylesheet's own hover lift. */
+.btn-cta,
+.fab-btn {
+  --magnet-x: 0px;
+  --magnet-y: 0px;
+  --lift-y: 0px;
+  transform: translate3d(var(--magnet-x), calc(var(--magnet-y) + var(--lift-y)), 0);
+  transition:
+    transform 0.28s var(--ease-cinematic),
+    box-shadow 0.28s var(--ease-cinematic),
+    background 0.25s var(--ease-cinematic);
+}
+
+.btn-cta:hover {
+  --lift-y: -3px;
+}
+
+.fab-btn:hover {
+  --lift-y: -4px;
+}
+
+/* Scroll-to-top starts hidden so it cannot overlap content before first paint. */
+.fab-top {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* The pinned sequence writes transforms every frame — promote once. */
+.portfolio-slide {
+  backface-visibility: hidden;
+}
+
+.slide-media-img {
+  --drift-y: 0px;
+  --hover-scale: 1.04;
+  transform: translate3d(0, var(--drift-y), 0) scale(var(--hover-scale));
+  will-change: transform;
+}
+
+.slide-visual-link:hover .slide-media-img {
+  --hover-scale: 1.08;
+}
+
+/* Mobile: drop the heaviest effects, keep the reveals. */
+@media (max-width: 768px) {
+  .reveal-mask,
+  .reveal-unmask {
+    transition-duration: 0.7s;
+  }
+
+  .reveal-stagger {
+    --reveal-delay: 0ms !important;
+  }
+
+  .hero-video-frame,
+  .service-video-frame,
+  .sticky-media-panel,
+  .method-video-frame {
+    will-change: auto;
+  }
+}
+
+/* Reduced motion: everything is simply present. */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal-mask,
+  .reveal-rise,
+  .reveal-unmask,
+  .reveal-stagger {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+    transition: none !important;
+  }
+
+  .work-marquee-track {
+    transform: none !important;
+  }
+
+  .btn-cta,
+  .fab-btn {
+    transform: none !important;
+  }
+}
+
+/* ==========================================================================
+   20. SMALL-SCREEN HEADER & TAP TARGETS
+   ========================================================================== */
+
+/* Icon-only controls must keep a tap target even if the icon webfont never
+   loads — otherwise the button collapses to 0x0 and becomes unclickable. */
+.mobile-menu-trigger,
+.mobile-close,
+.modal-close,
+.whatsapp-icon-btn,
+.fab-btn {
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-close,
+.modal-close,
+.mobile-menu-trigger {
+  line-height: 1;
+}
+
+@media (max-width: 1024px) {
+  .mobile-menu-trigger {
+    display: inline-flex;
+  }
+}
+
+/* Below 900px the header CTA no longer fits beside the logo, the WhatsApp
+   button and the menu trigger — it pushed the trigger off the right edge.
+   The same action is available in the drawer footer and as a floating button. */
+@media (max-width: 900px) {
+  .header-actions > .btn-cta {
+    display: none;
+  }
+
+  .header-actions {
+    gap: 0.75rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .site-header {
+    height: 72px;
+  }
+
+  .site-header.scrolled {
+    height: 66px;
+  }
+
+  .logo-badge {
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
+    border-radius: 10px;
+  }
+
+  .logo-title {
+    font-size: 1.15rem;
+  }
+
+  .logo-url {
+    font-size: 0.6rem;
+  }
+
+  .whatsapp-icon-btn {
+    font-size: 1.05rem;
+  }
+
+  .hero-section {
+    padding-top: 110px;
+  }
+
+  .case-study-page {
+    padding-top: 100px;
+  }
+}
+
+/* Floating controls must not sit on top of the footer CTA on narrow screens. */
+@media (max-width: 480px) {
+  .floating-controls {
+    right: 16px;
+    bottom: 16px;
+  }
+
+  .fab-btn {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+/* ==========================================================================
+   21. EDITORIAL GRID — SMALL SCREEN COLLAPSE
+   The 12-column track kept its eleven 3.5rem gutters below 992px, so the
+   grid stayed 616px wide inside a 350px container and pushed every page
+   that uses it into horizontal overflow. Collapse to a single track.
+   ========================================================================== */
+
+@media (max-width: 992px) {
+  .editorial-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.5rem;
+  }
+
+  .editorial-grid > .grid-left,
+  .editorial-grid > .grid-right {
+    grid-column: auto;
+    min-width: 0;
+  }
+}
+
+/* Long unbroken strings (URLs, client names) must never widen the page. */
+.editorial-prose,
+.hero-statement,
+.case-hero-tagline,
+.footer-desc,
+.metric-label,
+.portfolio-category,
+.slide-category {
+  overflow-wrap: anywhere;
+}
+
+/* Grid and flex children default to min-width:auto, which lets wide media
+   push a track past its container. */
+.editorial-grid > *,
+.service-panel-row > *,
+.metrics-grid > *,
+.portfolio-grid > *,
+.portfolio-grid-8 > *,
+.services-list-grid > *,
+.method-steps-grid > *,
+.footer-top-row > * {
+  min-width: 0;
+}
+
+/* ==========================================================================
+   22. DISPLAY TYPE ON NARROW SCREENS
+   The case-study/service page titles are single long words ("DEVELOPMENT",
+   "CONFECTIONERY"). Their clamp() floor of 3.5rem was wider than a 360px
+   viewport, so those pages scrolled sideways. Lower the floor on small
+   screens — the type stays display-scale, it just fits.
+   ========================================================================== */
+
+@media (max-width: 480px) {
+  .case-hero-title {
+    font-size: clamp(2.1rem, 9.5vw, 3.4rem);
+  }
+
+  .hero-display-heading {
+    font-size: clamp(3rem, 15vw, 5rem);
+  }
+
+  .cta-massive-statement {
+    font-size: clamp(2.6rem, 12vw, 4rem);
+  }
+
+  .footer-closing-statement {
+    font-size: clamp(1.5rem, 8vw, 2.2rem);
+  }
+
+  .service-title {
+    font-size: clamp(1.9rem, 9vw, 2.8rem);
+  }
+
+  .editorial-heading {
+    font-size: clamp(1.9rem, 8.5vw, 3rem);
+  }
+
+  .modal-title {
+    font-size: 1.7rem;
+  }
+
+  .metric-number {
+    font-size: clamp(2.2rem, 11vw, 3rem);
+  }
+}
+
+/* The service title sits in the narrow 2.5fr meta column; "STRATEGY" and
+   "PERFORMANCE" were wider than that column at desktop sizes. */
+.service-title {
+  font-size: clamp(1.9rem, 3.1vw, 3.1rem);
+  overflow-wrap: break-word;
+}

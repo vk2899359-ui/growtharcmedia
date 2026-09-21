@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
     <title>Kisaansay Case Study — GrowthArc Media</title>
     <meta name="description" content="Explore how GrowthArc Media scaled digital marketing and organic growth for farm-to-table brand Kisaansay." />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -21,7 +22,7 @@
         <nav class="desktop-nav">
           <a href="/#about" class="nav-link">About Us</a>
           <a href="/#services" class="nav-link">What We Do</a>
-          <a href="/#work" class="nav-link">Our Work</a>
+          <a href="/work.html" class="nav-link">Our Work</a>
           <a href="/#method" class="nav-link">Method</a>
           <a href="/#global" class="nav-link">Global Footprint</a>
           <a href="/#contact" class="nav-link">Contact Us</a>
@@ -34,10 +35,34 @@
       </div>
     </header>
 
+    <!-- MOBILE MENU OVERLAY -->
+    <div class="mobile-overlay" id="mobileDrawer">
+      <div class="mobile-overlay-content">
+        <div class="mobile-overlay-header">
+          <div class="brand-logo">
+            <span class="logo-badge">GA</span>
+            <span class="logo-title">GrowthArc<span class="dot-accent">.</span></span>
+          </div>
+          <button type="button" class="mobile-close" id="mobileMenuClose" aria-label="Close Navigation Menu"><i class="fas fa-times"></i></button>
+        </div>
+        <ul class="mobile-nav-menu">
+          <li><a href="/#about" class="mobile-link">About Us</a></li>
+          <li><a href="/#services" class="mobile-link">What We Do</a></li>
+          <li><a href="/work.html" class="mobile-link">Our Work</a></li>
+          <li><a href="/#method" class="mobile-link">Method</a></li>
+          <li><a href="/#global" class="mobile-link">Global Footprint</a></li>
+          <li><a href="/#contact" class="mobile-link">Contact Us</a></li>
+        </ul>
+        <div class="mobile-overlay-footer">
+          <button type="button" class="btn-cta w-full open-modal-btn" data-service="Case Study Inquiry: Kisaansay">Talk to an Expert</button>
+        </div>
+      </div>
+    </div>
+
     <main class="case-study-page">
       <section class="case-hero-section">
         <div class="site-container">
-          <a href="/#work" class="back-link mb-30 inline-block text-pink font-bold"><i class="fas fa-arrow-left mr-2"></i> Back to Work</a>
+          <a href="/work.html" class="back-link mb-30 inline-block text-pink font-bold"><i class="fas fa-arrow-left mr-2"></i> Back to Work</a>
           <span class="section-label text-yellow">(CASE STUDY)</span>
           <h1 class="case-hero-title">KISAANSAY</h1>
           <p class="case-hero-tags">Digital Marketing &bull; Organic Growth &bull; Branding</p>
