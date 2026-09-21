@@ -77,6 +77,7 @@ window.addEventListener('orientationchange', queueFrame, { passive: true });
    -------------------------------------------------------------------------- */
 
 function boot() {
+  initBlogFilter();
   initResilientVideo();
   initHeaderBehavior();
   initRevealChoreography();
@@ -661,6 +662,42 @@ function initMagneticButtons() {
     btn.addEventListener('mouseleave', () => {
       btn.style.setProperty('--magnet-x', '0px');
       btn.style.setProperty('--magnet-y', '0px');
+    });
+  });
+}
+
+/* --------------------------------------------------------------------------
+   12. Blog category filter
+   Progressive enhancement: every card is in the HTML and visible without JS,
+   so the page is fully crawlable and works if this never runs.
+   -------------------------------------------------------------------------- */
+
+function initBlogFilter() {
+  const grid = document.getElementById('blogGrid');
+  const chips = document.querySelectorAll('.blog-chip');
+  if (!grid || !chips.length) return;
+
+  const cards = Array.from(grid.querySelectorAll('.blog-card'));
+  const empty = document.getElementById('blogEmpty');
+
+  const categoryOf = card => {
+    const el = card.querySelector('.blog-card-category');
+    return el ? el.textContent.trim() : '';
+  };
+
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      const wanted = chip.getAttribute('data-category');
+      chips.forEach(c => c.classList.toggle('active', c === chip));
+
+      let shown = 0;
+      cards.forEach(card => {
+        const match = wanted === 'All' || categoryOf(card) === wanted;
+        card.classList.toggle('hidden', !match);
+        if (match) shown += 1;
+      });
+
+      if (empty) empty.classList.toggle('hidden', shown > 0);
     });
   });
 }

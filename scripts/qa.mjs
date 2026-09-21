@@ -11,17 +11,23 @@
 // Set BASE to point at a different origin, CHROME_PATH to pin a browser binary.
 
 import { chromium } from 'playwright';
+import { readdirSync } from 'node:fs';
 
 const BASE = process.env.BASE || 'http://127.0.0.1:4173';
+const BLOG_SLUGS = readdirSync(new URL('../blog/', import.meta.url), { withFileTypes: true })
+  .filter(e => e.isDirectory())
+  .map(e => e.name);
+
 const PAGES = [
-  '/', '/work.html',
+  '/', '/work.html', '/blog',
   ...['brand-strategy','brand-identity','creative-content','digital-marketing','performance-marketing','web-development'].map(s=>`/services/${s}.html`),
   ...['auric-jewels','gemhub','kisaansay','superup-home-solution','kabeer-confectionery','veda-club','akiso','rupeenest-capital'].map(s=>`/work/${s}.html`),
+  ...BLOG_SLUGS.map(s=>`/blog/${s}`),
 ];
 const WIDTHS = [360, 375, 390, 768, 1024, 1280, 1440];
 
 // External CDNs are unreachable from this sandbox; don't count them as site bugs.
-const EXTERNAL = /fonts\.googleapis|fonts\.gstatic|cdnjs\.cloudflare|doorsstudio\.com|api\.whatsapp/;
+const EXTERNAL = /fonts\.googleapis|fonts\.gstatic|cdnjs\.cloudflare|doorsstudio\.com|api\.whatsapp|images\.unsplash\.com|instagram\.com|linkedin\.com/;
 
 const problems = [];
 const note = (p) => { problems.push(p); console.log('  ✗ ' + p); };
@@ -39,7 +45,12 @@ for (const width of WIDTHS) {
     const errs = [];
     page.on('pageerror', e => errs.push('JS: ' + e.message));
     page.on('console', m => { const loc = (m.location() && m.location().url) || ''; if (m.type() === 'error' && !EXTERNAL.test(m.text()) && !EXTERNAL.test(loc)) errs.push('console: ' + m.text() + ' @' + loc); });
-    page.on('requestfailed', r => { if (!EXTERNAL.test(r.url())) errs.push('request failed: ' + r.url()); });
+    page.on('requestfailed', r => {
+      const why = (r.failure() && r.failure().errorText) || '';
+      // Media range requests are routinely aborted once enough is buffered.
+      if (why === 'net::ERR_ABORTED') return;
+      if (!EXTERNAL.test(r.url())) errs.push(`request failed: ${r.url()} (${why})`);
+    });
 
     const resp = await page.goto(BASE + path, { waitUntil: 'load' });
     if (!resp || resp.status() >= 400) note(`${path} @${width} HTTP ${resp && resp.status()}`);
@@ -75,6 +86,13 @@ for (const width of WIDTHS) {
     });
     for (const u of unreachable) note(`${path} @${width} ${u}`);
 
+    if (width === 1440) {
+      const badLd = await page.$$eval('script[type="application/ld+json"]', els => els.map(el => {
+        try { JSON.parse(el.textContent); return null; } catch (e) { return e.message; }
+      }).filter(Boolean));
+      for (const b of badLd) note(`${path} invalid JSON-LD: ${b}`);
+    }
+
     for (const e of errs) note(`${path} @${width} ${e}`);
     await page.close();
   }
@@ -100,7 +118,7 @@ console.log('\n=== link integrity ===');
     }
     // dead buttons: anything that looks clickable but has no handler hook
     const deadBtns = await page.$$eval('button', bs => bs
-      .filter(b => b.type !== 'submit' && !b.id && !b.className.split(' ').some(c => ['open-modal-btn','mobile-menu-trigger','mobile-close','modal-close'].includes(c)))
+      .filter(b => b.type !== 'submit' && !b.id && !b.className.split(' ').some(c => ['open-modal-btn','mobile-menu-trigger','mobile-close','modal-close','blog-chip'].includes(c)))
       .map(b => b.innerText.trim().slice(0,40)));
     for (const b of deadBtns) note(`${path} button with no handler: "${b}"`);
   }

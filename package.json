@@ -4,10 +4,13 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
+    "dev": "node scripts/build-blog.mjs && node scripts/build-seo.mjs && vite",
+    "build": "node scripts/build-blog.mjs && node scripts/build-seo.mjs && vite build",
     "preview": "vite preview",
-    "qa": "node scripts/qa.mjs"
+    "qa": "node scripts/qa.mjs",
+    "build:blog": "node scripts/build-blog.mjs",
+    "serve": "node scripts/serve-dist.mjs",
+    "build:seo": "node scripts/build-seo.mjs"
   },
   "devDependencies": {
     "playwright": "^1.63.0",

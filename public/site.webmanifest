@@ -1,0 +1,17 @@
+{
+  "name": "GrowthArc Media",
+  "short_name": "GrowthArc",
+  "description": "Performance-driven creative agency — digital marketing, web development, AI automation.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#030200",
+  "theme_color": "#030200",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

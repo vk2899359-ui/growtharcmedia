@@ -13,15 +13,21 @@
  * Anything not listed here is left exactly as authored.
  */
 export const VIDEO_SOURCE_OVERRIDES = {
-  // 'brand-big-idea2.mp4':      '/videos/growtharc-hero-reel.mp4',
-  // 'marketing-is-our-jam.mp4': '/videos/growtharc-positioning.mp4',
-  // 'brand-strategy.mp4':       '/videos/growtharc-brand-strategy.mp4',
-  // 'brand-identity.mp4':       '/videos/growtharc-brand-identity.mp4',
-  // 'brand-communication.mp4':  '/videos/growtharc-creative-content.mp4',
-  // 'digital-marketing.mp4':    '/videos/growtharc-digital-marketing.mp4',
-  // 'performance-marketing.mp4':'/videos/growtharc-performance.mp4',
-  // 'web-development.mp4':      '/videos/growtharc-web-development.mp4',
-  // 'explore-method.mp4':       '/videos/growtharc-method.mp4',
+  // GrowthArc's own reels, recovered from the previous site and now served
+  // from this repo. These replace the third-party doorsstudio.com hotlinks
+  // that the markup shipped with — those were another studio's files and
+  // could be pulled or hotlink-blocked at any time.
+  'brand-big-idea2.mp4': '/videos/hero-reel.mp4',
+  'marketing-is-our-jam.mp4': '/videos/about-reel.mp4',
+  'explore-method.mp4': '/videos/work-reel.mp4',
+
+  // Six service panels, two reels — alternated so adjacent panels differ.
+  'brand-strategy.mp4': '/videos/services-hero.mp4',
+  'brand-identity.mp4': '/videos/services-reel.mp4',
+  'brand-communication.mp4': '/videos/services-hero.mp4',
+  'digital-marketing.mp4': '/videos/services-reel.mp4',
+  'performance-marketing.mp4': '/videos/services-hero.mp4',
+  'web-development.mp4': '/videos/services-reel.mp4',
 };
 
 /** Returns the URL a given video element should actually load. */
