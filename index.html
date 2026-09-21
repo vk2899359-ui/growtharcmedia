@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="robots" content="index, follow" />
+    
+    <title>GrowthArc Media — Digital Marketing & Performance Agency | growtharcmedia.in</title>
+    <meta name="description" content="GrowthArc Media (growtharcmedia.in) is a premier digital marketing & performance agency. We engineer brand strategy, creative content, high-ROAS marketing, and custom web experiences." />
+    <link rel="canonical" href="https://growtharcmedia.in/" />
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="GrowthArc Media — Editorial Digital Marketing Agency" />
+    <meta property="og:site_name" content="GrowthArc Media" />
+    <meta property="og:url" content="https://growtharcmedia.in/" />
+    <meta property="og:description" content="Define. Design. Build. Market. GrowthArc Media helps brands launch, scale, and grow." />
+    <meta property="og:type" content="website" />
+
+    <!-- Google Fonts: Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body class="bg-canvas text-black antialiased selection-highlight">
+    
+    <!-- 1. STICKY MINIMAL HEADER -->
+    <header class="site-header" id="siteHeader">
+      <div class="site-container header-inner">
+        <!-- Logo -->
+        <a href="/" class="brand-logo" aria-label="GrowthArc Media Home">
+          <span class="logo-badge">GA</span>
+          <div class="logo-meta">
+            <span class="logo-title">GrowthArc<span class="dot-accent">.</span></span>
+            <span class="logo-url">growtharcmedia.in</span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <nav class="desktop-nav">
+          <a href="/#about" class="nav-link">About Us</a>
+          <div class="nav-dropdown">
+            <a href="/#services" class="nav-link">What We Do <i class="fas fa-chevron-down text-xs ml-1"></i></a>
+            <div class="nav-dropdown-menu">
+              <a href="/services/brand-strategy.html"><i class="fas fa-compass text-pink mr-2"></i> Brand Strategy</a>
+              <a href="/services/brand-identity.html"><i class="fas fa-fingerprint text-yellow mr-2"></i> Brand Identity</a>
+              <a href="/services/creative-content.html"><i class="fas fa-bullhorn text-green mr-2"></i> Creative & Content</a>
+              <a href="/services/digital-marketing.html"><i class="fas fa-chart-line text-orange mr-2"></i> Digital Marketing</a>
+              <a href="/services/performance-marketing.html"><i class="fas fa-rocket text-pink mr-2"></i> Performance Marketing</a>
+              <a href="/services/web-development.html"><i class="fas fa-code text-green mr-2"></i> Web Development</a>
+            </div>
+          </div>
+          <a href="/work.html" class="nav-link">Our Work</a>
+          <a href="/#method" class="nav-link">Method</a>
+          <a href="/#global" class="nav-link">Global Footprint</a>
+          <a href="/#contact" class="nav-link">Contact Us</a>
+        </nav>
+
+        <!-- Header Actions -->
+        <div class="header-actions">
+          <button type="button" class="btn-cta open-modal-btn" data-service="General Strategy Inquiry">
+            <span>Talk to an Expert</span>
+            <i class="fas fa-arrow-right icon-arrow"></i>
+          </button>
+          
+          <a href="https://api.whatsapp.com/send?phone=919876543210&text=Hello%20GrowthArc%20Media!%20I'd%20like%20to%20scale%20my%20brand." target="_blank" rel="noopener" class="whatsapp-icon-btn" title="Chat on WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+          </a>
+
+          <button type="button" class="mobile-menu-trigger" id="mobileMenuToggle" aria-label="Open Navigation Menu">
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- MOBILE MENU OVERLAY -->
+    <div class="mobile-overlay" id="mobileDrawer">
+      <div class="mobile-overlay-content">
+        <div class="mobile-overlay-header">
+          <div class="brand-logo">
+            <span class="logo-badge">GA</span>
+            <span class="logo-title">GrowthArc<span class="dot-accent">.</span></span>
+          </div>
+          <button type="button" class="mobile-close" id="mobileMenuClose"><i class="fas fa-times"></i></button>
+        </div>
+        <ul class="mobile-nav-menu">
+          <li><a href="/#about" class="mobile-link">About Us</a></li>
+          <li><a href="/#services" class="mobile-link">What We Do</a></li>
+          <li><a href="/work.html" class="mobile-link">Our Work</a></li>
+          <li><a href="/#method" class="mobile-link">Method</a></li>
+          <li><a href="/#global" class="mobile-link">Global Footprint</a></li>
+          <li><a href="/#contact" class="mobile-link">Contact Us</a></li>
+        </ul>
+        <div class="mobile-overlay-footer">
+          <button type="button" class="btn-cta w-full open-modal-btn" data-service="Mobile Menu Inquiry">Talk to an Expert</button>
+          <div class="mobile-socials">
+            <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://twitter.com" target="_blank"><i class="fab fa-x-twitter"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN PAGE CONTENT -->
+    <main>
+
+      <!-- 2. EDITORIAL HERO SECTION -->
+      <section class="hero-section" id="hero">
+        <div class="site-container">
+          
+          <div class="hero-typography-block">
+            <h1 class="hero-display-heading">
+              <span class="word-group">
+                <i class="fas fa-asterisk spin-asterisk dot-pink"></i> DEFINE<span class="dot-accent dot-pink">.</span>
+              </span>
+              <span class="word-group">
+                DESIGN<span class="dot-accent dot-yellow">.</span>
+              </span>
+              <span class="word-group">
+                BUILD<span class="dot-accent dot-green">.</span>
+              </span>
+              <span class="word-group hero-market-line">
+                <span class="down-arrow-indicator">
+                  <i class="fas fa-long-arrow-alt-down text-yellow"></i>
+                </span>
+                MARKET<span class="dot-accent dot-orange">.</span><span class="hero-trademark">®</span>
+              </span>
+            </h1>
+          </div>
+
+          <div class="hero-editorial-row">
+            <div class="hero-copy-box">
+              <p class="hero-statement">
+                <strong>GrowthArc Media®</strong> (growtharcmedia.in) is a digital marketing & performance agency that helps brands launch, scale and grow.
+              </p>
+              <div class="hero-tagline-bar">
+                <span class="tagline-text">Turning Big Ideas Into Scalable High-ROAS Brands</span>
+              </div>
+            </div>
+
+            <div class="hero-scroll-indicator">
+              <a href="#about" class="scroll-link">
+                <span>(SCROLL)</span>
+                <i class="fas fa-arrow-down icon-scroll"></i>
+              </a>
+            </div>
+          </div>
+
+          <div class="hero-media-stage mt-60" id="heroVideoStage">
+            <div class="hero-media-wrapper">
+              <figure class="hero-video-frame">
+                <video src="https://www.doorsstudio.com/assets/front/videos/brand-big-idea2.mp4" poster="/images/auric-jewels.png" autoplay loop muted playsinline class="hero-video-player"></video>
+                <div class="hero-video-badge">
+                  <span class="badge-dot"></span> REEL 2026
+                </div>
+              </figure>
+              <div class="hero-ticker-bar">
+                <span>STRATEGY</span> &bull; 
+                <span>CREATIVE</span> &bull; 
+                <span>PERFORMANCE</span> &bull; 
+                <span>GROWTH</span> &bull; 
+                <span>WEB DEVELOPMENT</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 3. THINK BIG & AGENCY POSITIONING -->
+      <section class="section-editorial bg-secondary-panel" id="about">
+        <div class="site-container">
+          <div class="editorial-grid">
+            <div class="grid-left">
+              <span class="section-label">(AGENCY POSITIONING)</span>
+              <div class="sticky-media-panel">
+                <video src="https://www.doorsstudio.com/assets/front/videos/marketing-is-our-jam.mp4" poster="/images/gemhub.png" autoplay loop muted playsinline class="panel-video"></video>
+              </div>
+            </div>
+
+            <div class="grid-right">
+              <h3 class="section-subheading text-yellow uppercase">Marketing Is Our Jam & We Spread It Thick</h3>
+              <h2 class="editorial-heading">Powerful Performance Solutions Built For Category Leaders</h2>
+              
+              <div class="editorial-prose">
+                <p>
+                  At <strong>GrowthArc Media</strong> (<a href="https://growtharcmedia.in" class="text-pink underline-link">growtharcmedia.in</a>), we unite brand strategy, data-backed performance marketing, and modern software engineering into one cohesive growth engine.
+                </p>
+                <p>
+                  We collaborate with visionary founders and enterprise leaders to replace fragmented agency work with an integrated, high-velocity roadmap focused on scalable revenue and maximum ROAS.
+                </p>
+              </div>
+
+              <div class="action-row mt-40">
+                <button type="button" class="btn-cta open-modal-btn" data-service="Positioning Audit">
+                  <span>Enquire Strategy</span>
+                  <i class="fas fa-arrow-right icon-arrow"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. EDITORIAL SERVICES (WHAT WE DO) -->
+      <section class="section-editorial" id="services">
+        <div class="site-container">
+          <div class="section-header-block mb-80">
+            <span class="section-label">(WHAT WE DO)</span>
+            <h2 class="editorial-heading uppercase">Capabilities & Expertise</h2>
+          </div>
+
+          <div class="service-panels-list">
+
+            <article class="service-panel-row border-t-line">
+              <div class="service-meta-col">
+                <span class="service-number text-yellow">01</span>
+                <h3 class="service-title">Brand<br>Strategy</h3>
+              </div>
+              <div class="service-content-col">
+                <p class="service-lead">We craft bold, standout positioning strategies to transform your brand into an unforgettable industry icon.</p>
+                <ul class="capability-list">
+                  <li><i class="fas fa-asterisk text-pink"></i> Market Analysis & Competitor Intelligence</li>
+                  <li><i class="fas fa-asterisk text-pink"></i> Comprehensive Brand Audits</li>
+                  <li><i class="fas fa-asterisk text-pink"></i> Brand Purpose, Vision & Core Values</li>
+                  <li><i class="fas fa-asterisk text-pink"></i> Target Audience Persona Profiling</li>
+                  <li><i class="fas fa-asterisk text-pink"></i> Strategic Growth Roadmap</li>
+                </ul>
+                <div class="mt-30"><a href="/services/brand-strategy.html" class="btn-text-link">Explore Strategy <i class="fas fa-arrow-right"></i></a></div>
+              </div>
+              <div class="service-media-col"><div class="service-video-frame"><video src="https://www.doorsstudio.com/assets/front/videos/brand-strategy.mp4" poster="/images/superup.png" autoplay loop muted playsinline class="service-video"></video></div></div>
+            </article>
+
+            <article class="service-panel-row border-t-line">
+              <div class="service-meta-col">
+                <span class="service-number text-pink">02</span>
+                <h3 class="service-title">Brand<br>Identity</h3>
+              </div>
+              <div class="service-content-col">
+                <p class="service-lead">From iconic logomarks to design systems, we craft every element to reflect your brand's true essence.</p>
+                <ul class="capability-list">
+                  <li><i class="fas fa-asterisk text-yellow"></i> Logo Design & Visual Mark Systems</li>
+                  <li><i class="fas fa-asterisk text-yellow"></i> Design Systems & Guidelines</li>
+                  <li><i class="fas fa-asterisk text-yellow"></i> Typography & Color Palette Architecture</li>
+                  <li><i class="fas fa-asterisk text-yellow"></i> Tagline, Naming & Brand Voice</li>
+                  <li><i class="fas fa-asterisk text-yellow"></i> Packaging & Collateral Design</li>
+                </ul>
+                <div class="mt-30"><a href="/services/brand-identity.html" class="btn-text-link">Explore Identity <i class="fas fa-arrow-right"></i></a></div>
+              </div>
+              <div class="service-media-col"><div class="service-video-frame"><video src="https://www.doorsstudio.com/assets/front/videos/brand-identity.mp4" poster="/images/kisaansay.png" autoplay loop muted playsinline class="service-video"></video></div></div>
+            </article>
+
+            <article class="service-panel-row border-t-line">
+              <div class="service-meta-col">
+                <span class="service-number text-green">03</span>
+                <h3 class="service-title">Creative &<br>Content</h3>
+              </div>
+              <div class="service-content-col">
+                <p class="service-lead">Turning your brand's voice into high-converting visual stories that captivate audiences.</p>
+                <ul class="capability-list">
+                  <li><i class="fas fa-asterisk text-green"></i> Integrated Ad Creative Production</li>
+                  <li><i class="fas fa-asterisk text-green"></i> Storytelling & Brand Copywriting</li>
+                  <li><i class="fas fa-asterisk text-green"></i> UGC & Creator Video Campaigns</li>
+                  <li><i class="fas fa-asterisk text-green"></i> Content Strategy & Editorial Curation</li>
+                  <li><i class="fas fa-asterisk text-green"></i> PR Strategy & Media Outreach</li>
+                </ul>
+                <div class="mt-30"><a href="/services/creative-content.html" class="btn-text-link">Explore Creative <i class="fas fa-arrow-right"></i></a></div>
+              </div>
+              <div class="service-media-col"><div class="service-video-frame"><video src="https://www.doorsstudio.com/assets/front/videos/brand-communication.mp4" poster="/images/kabeer.png" autoplay loop muted playsinline class="service-video"></video></div></div>
+            </article>
+
+            <article class="service-panel-row border-t-line">
+              <div class="service-meta-col">
+                <span class="service-number text-orange">04</span>
+                <h3 class="service-title">Digital<br>Marketing</h3>
+              </div>
+              <div class="service-content-col">
+                <p class="service-lead">Building vibrant multi-channel digital presence with campaigns that excite, engage, and convert.</p>
+                <ul class="capability-list">
+                  <li><i class="fas fa-asterisk text-orange"></i> Full-Funnel Social Media Management</li>
+                  <li><i class="fas fa-asterisk text-orange"></i> Organic Search & Content Strategy</li>
+                  <li><i class="fas fa-asterisk text-orange"></i> Community Building & Engagement</li>
+                  <li><i class="fas fa-asterisk text-orange"></i> Influencer & Talent Relations</li>
+                  <li><i class="fas fa-asterisk text-orange"></i> Online Reputation Management</li>
+                </ul>
+                <div class="mt-30"><a href="/services/digital-marketing.html" class="btn-text-link">Explore Marketing <i class="fas fa-arrow-right"></i></a></div>
+              </div>
+              <div class="service-media-col"><div class="service-video-frame"><video src="https://www.doorsstudio.com/assets/front/videos/digital-marketing.mp4" poster="/images/veda-club.png" autoplay loop muted playsinline class="service-video"></video></div></div>
+            </article>
+
+            <article class="service-panel-row border-t-line">
+              <div class="service-meta-col">
+                <span class="service-number text-yellow">05</span>
+                <h3 class="service-title">Performance<br>Marketing</h3>
+              </div>
+              <div class="service-content-col">
+                <p class="service-lead">Data-driven paid advertising engineered for maximum ROAS, user acquisition, and business scale.</p>
+                <ul class="capability-list">
+                  <li><i class="fas fa-asterisk text-pink"></i> High-Intent Google Search Ads (SEM)</li>
+                  <li><i class="fas fa-asterisk text-pink"></i> Meta Ads (Facebook & Instagram Paid)</li>
+                  <li><i class="fas fa-asterisk text-pink"></i> TikTok & LinkedIn Performance Ads</li>
+                  <li><i class="fas fa-asterisk text-pink"></i> Programmatic & Display Media Buying</li>
+                  <li><i class="fas fa-asterisk text-pink"></i> Conversion Rate Optimization (CRO)</li>
+                </ul>
+                <div class="mt-30"><a href="/services/performance-marketing.html" class="btn-text-link">Explore Performance <i class="fas fa-arrow-right"></i></a></div>
+              </div>
+              <div class="service-media-col"><div class="service-video-frame"><video src="https://www.doorsstudio.com/assets/front/videos/performance-marketing.mp4" poster="/images/akiso.png" autoplay loop muted playsinline class="service-video"></video></div></div>
+            </article>
+
+            <article class="service-panel-row border-t-line">
+              <div class="service-meta-col">
+                <span class="service-number text-green">06</span>
+                <h3 class="service-title">Web<br>Development</h3>
+              </div>
+              <div class="service-content-col">
+                <p class="service-lead">Custom web applications, e-commerce portals, and interactive experiences optimized for performance.</p>
+                <ul class="capability-list">
+                  <li><i class="fas fa-asterisk text-green"></i> Custom UI/UX Design & Prototyping</li>
+                  <li><i class="fas fa-asterisk text-green"></i> Next.js, React & Vite Web Apps</li>
+                  <li><i class="fas fa-asterisk text-green"></i> High-Conversion E-Commerce Platforms</li>
+                  <li><i class="fas fa-asterisk text-green"></i> Headless Architecture & API Integrations</li>
+                  <li><i class="fas fa-asterisk text-green"></i> Speed Optimization & Technical SEO</li>
+                </ul>
+                <div class="mt-30"><a href="/services/web-development.html" class="btn-text-link">Explore Web Dev <i class="fas fa-arrow-right"></i></a></div>
+              </div>
+              <div class="service-media-col"><div class="service-video-frame"><video src="https://www.doorsstudio.com/assets/front/videos/web-development.mp4" poster="/images/rupeenest.png" autoplay loop muted playsinline class="service-video"></video></div></div>
+            </article>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. PINNED PORTFOLIO SCROLL SEQUENCE SECTION (350vh Pinned Viewport) -->
+      <section class="pinned-portfolio-section" id="pinnedPortfolioSection">
+        
+        <!-- Large Horizontal Marquee Header -->
+        <div class="work-marquee-container py-40">
+          <div class="work-marquee-track flex whitespace-nowrap text-7xl md:text-9xl font-black uppercase" id="workMarqueeTrack">
+            <div class="work-marquee-group flex items-center gap-12">
+              <span>WORK WE BUILD</span> <span class="dot-accent dot-pink">•</span>
+              <span>BRANDS WE GROW</span> <span class="dot-accent dot-yellow">•</span>
+              <span>WORK WE DELIVER</span> <span class="dot-accent dot-green">•</span>
+              <span>THE WORK WE BUILD</span> <span class="dot-accent dot-orange">•</span>
+            </div>
+            <div class="work-marquee-group flex items-center gap-12" aria-hidden="true">
+              <span>WORK WE BUILD</span> <span class="dot-accent dot-pink">•</span>
+              <span>BRANDS WE GROW</span> <span class="dot-accent dot-yellow">•</span>
+              <span>WORK WE DELIVER</span> <span class="dot-accent dot-green">•</span>
+              <span>THE WORK WE BUILD</span> <span class="dot-accent dot-orange">•</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sticky Pinned Viewport -->
+        <div class="pinned-portfolio-viewport">
+          <div class="site-container sequence-container">
+            
+            <div class="sequence-header flex-between mb-20">
+              <span class="sequence-label uppercase text-yellow font-bold">(FEATURED PORTFOLIO)</span>
+              <div class="sequence-counter font-mono text-2xl font-bold">01 / 08</div>
+            </div>
+
+            <div class="sequence-progress-bar"><div class="sequence-progress-inner"></div></div>
+
+            <!-- Slides Stack -->
+            <div class="portfolio-slides-stack">
+              
+              <!-- Slide 1: Auric Jewels -->
+              <div class="portfolio-slide active" data-slide="0">
+                <a href="/work/auric-jewels.html" class="slide-visual-link">
+                  <div class="slide-media-wrapper">
+                    <img src="/images/auric-jewels.png" alt="Auric Jewels" class="slide-media-img" />
+                    <span class="slide-badge">VIEW CASE STUDY &rarr;</span>
+                  </div>
+                </a>
+                <div class="slide-meta-row flex-between mt-20">
+                  <div>
+                    <h3 class="slide-title text-4xl font-extrabold uppercase"><a href="/work/auric-jewels.html">AURIC JEWELS</a></h3>
+                    <p class="slide-category text-gray-400 font-semibold mt-1">Branding &bull; Digital Marketing &bull; Performance</p>
+                  </div>
+                  <a href="/work/auric-jewels.html" class="btn-text-link">Explore Project <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <!-- Slide 2: GemHub -->
+              <div class="portfolio-slide" data-slide="1">
+                <a href="/work/gemhub.html" class="slide-visual-link">
+                  <div class="slide-media-wrapper">
+                    <img src="/images/gemhub.png" alt="GemHub" class="slide-media-img" />
+                    <span class="slide-badge">VIEW CASE STUDY &rarr;</span>
+                  </div>
+                </a>
+                <div class="slide-meta-row flex-between mt-20">
+                  <div>
+                    <h3 class="slide-title text-4xl font-extrabold uppercase"><a href="/work/gemhub.html">GEMHUB</a></h3>
+                    <p class="slide-category text-gray-400 font-semibold mt-1">Performance Marketing &bull; Creative &bull; Growth</p>
+                  </div>
+                  <a href="/work/gemhub.html" class="btn-text-link">Explore Project <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <!-- Slide 3: Kisaansay -->
+              <div class="portfolio-slide" data-slide="2">
+                <a href="/work/kisaansay.html" class="slide-visual-link">
+                  <div class="slide-media-wrapper">
+                    <img src="/images/kisaansay.png" alt="Kisaansay" class="slide-media-img" />
+                    <span class="slide-badge">VIEW CASE STUDY &rarr;</span>
+                  </div>
+                </a>
+                <div class="slide-meta-row flex-between mt-20">
+                  <div>
+                    <h3 class="slide-title text-4xl font-extrabold uppercase"><a href="/work/kisaansay.html">KISAANSAY</a></h3>
+                    <p class="slide-category text-gray-400 font-semibold mt-1">Digital Marketing &bull; Growth</p>
+                  </div>
+                  <a href="/work/kisaansay.html" class="btn-text-link">Explore Project <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <!-- Slide 4: Superup Home Solution -->
+              <div class="portfolio-slide" data-slide="3">
+                <a href="/work/superup-home-solution.html" class="slide-visual-link">
+                  <div class="slide-media-wrapper">
+                    <img src="/images/superup.png" alt="Superup Home Solution" class="slide-media-img" />
+                    <span class="slide-badge">VIEW CASE STUDY &rarr;</span>
+                  </div>
+                </a>
+                <div class="slide-meta-row flex-between mt-20">
+                  <div>
+                    <h3 class="slide-title text-4xl font-extrabold uppercase"><a href="/work/superup-home-solution.html">SUPERUP HOME SOLUTION</a></h3>
+                    <p class="slide-category text-gray-400 font-semibold mt-1">Branding &bull; Marketing &bull; Digital</p>
+                  </div>
+                  <a href="/work/superup-home-solution.html" class="btn-text-link">Explore Project <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <!-- Slide 5: Kabeer Confectionery -->
+              <div class="portfolio-slide" data-slide="4">
+                <a href="/work/kabeer-confectionery.html" class="slide-visual-link">
+                  <div class="slide-media-wrapper">
+                    <img src="/images/kabeer.png" alt="Kabeer Confectionery" class="slide-media-img" />
+                    <span class="slide-badge">VIEW CASE STUDY &rarr;</span>
+                  </div>
+                </a>
+                <div class="slide-meta-row flex-between mt-20">
+                  <div>
+                    <h3 class="slide-title text-4xl font-extrabold uppercase"><a href="/work/kabeer-confectionery.html">KABEER CONFECTIONERY</a></h3>
+                    <p class="slide-category text-gray-400 font-semibold mt-1">Creative &bull; Digital Marketing</p>
+                  </div>
+                  <a href="/work/kabeer-confectionery.html" class="btn-text-link">Explore Project <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <!-- Slide 6: Veda Club -->
+              <div class="portfolio-slide" data-slide="5">
+                <a href="/work/veda-club.html" class="slide-visual-link">
+                  <div class="slide-media-wrapper">
+                    <img src="/images/veda-club.png" alt="Veda Club" class="slide-media-img" />
+                    <span class="slide-badge">VIEW CASE STUDY &rarr;</span>
+                  </div>
+                </a>
+                <div class="slide-meta-row flex-between mt-20">
+                  <div>
+                    <h3 class="slide-title text-4xl font-extrabold uppercase"><a href="/work/veda-club.html">VEDA CLUB</a></h3>
+                    <p class="slide-category text-gray-400 font-semibold mt-1">Branding &bull; Digital</p>
+                  </div>
+                  <a href="/work/veda-club.html" class="btn-text-link">Explore Project <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <!-- Slide 7: Akiso -->
+              <div class="portfolio-slide" data-slide="6">
+                <a href="/work/akiso.html" class="slide-visual-link">
+                  <div class="slide-media-wrapper">
+                    <img src="/images/akiso.png" alt="Akiso" class="slide-media-img" />
+                    <span class="slide-badge">VIEW CASE STUDY &rarr;</span>
+                  </div>
+                </a>
+                <div class="slide-meta-row flex-between mt-20">
+                  <div>
+                    <h3 class="slide-title text-4xl font-extrabold uppercase"><a href="/work/akiso.html">AKISO</a></h3>
+                    <p class="slide-category text-gray-400 font-semibold mt-1">Branding &bull; Digital Marketing</p>
+                  </div>
+                  <a href="/work/akiso.html" class="btn-text-link">Explore Project <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <!-- Slide 8: RupeeNest Capital -->
+              <div class="portfolio-slide" data-slide="7">
+                <a href="https://growtharcmedia.in/work/rupeenest-capital" target="_blank" rel="noopener" class="slide-visual-link">
+                  <div class="slide-media-wrapper">
+                    <img src="/images/rupeenest.png" alt="RupeeNest Capital" class="slide-media-img" />
+                    <span class="slide-badge">OPEN CASE STUDY &rarr;</span>
+                  </div>
+                </a>
+                <div class="slide-meta-row flex-between mt-20">
+                  <div>
+                    <h3 class="slide-title text-4xl font-extrabold uppercase">
+                      <a href="https://growtharcmedia.in/work/rupeenest-capital" target="_blank" rel="noopener">
+                        RUPEENEST CAPITAL <i class="fas fa-external-link-alt text-xs text-pink ml-1"></i>
+                      </a>
+                    </h3>
+                    <p class="slide-category text-gray-400 font-semibold mt-1">Performance Marketing &bull; Digital Growth</p>
+                  </div>
+                  <a href="https://growtharcmedia.in/work/rupeenest-capital" target="_blank" rel="noopener" class="btn-text-link">Open Case Study <i class="fas fa-external-link-alt"></i></a>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="portfolio-full-link-row mt-40 text-center">
+              <a href="/work.html" class="btn-secondary-action">
+                <span>View All Work & Case Studies</span>
+                <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+
+          </div>
+        </div>
+
+      </section>
+
+      <!-- 6. EDITORIAL METHOD SECTION -->
+      <section class="section-editorial" id="method">
+        <div class="site-container">
+          <div class="section-header-block mb-80">
+            <span class="section-label">(METHOD & PROCESS)</span>
+            <h2 class="editorial-heading uppercase">How We Scale Brands</h2>
+          </div>
+
+          <div class="method-steps-grid">
+            <div class="method-step-card border-t-line">
+              <span class="step-num text-pink">01</span>
+              <h3 class="step-name">DISCOVER</h3>
+              <p class="step-desc">Deep brand audit, market intelligence, target profiling, and gap discovery.</p>
+            </div>
+
+            <div class="method-step-card border-t-line">
+              <span class="step-num text-yellow">02</span>
+              <h3 class="step-name">STRATEGIZE</h3>
+              <p class="step-desc">Formulate positioning, messaging matrix, media strategy, and ROI targets.</p>
+            </div>
+
+            <div class="method-step-card border-t-line">
+              <span class="step-num text-green">03</span>
+              <h3 class="step-name">CREATE</h3>
+              <p class="step-desc">Design visual identity, high-converting ad creatives, and digital assets.</p>
+            </div>
+
+            <div class="method-step-card border-t-line">
+              <span class="step-num text-orange">04</span>
+              <h3 class="step-name">LAUNCH</h3>
+              <p class="step-desc">Deploy multi-channel campaigns, search ads, and custom web experience.</p>
+            </div>
+
+            <div class="method-step-card border-t-line">
+              <span class="step-num text-pink">05</span>
+              <h3 class="step-name">OPTIMIZE</h3>
+              <p class="step-desc">Continuous CRO, creative iteration, audience testing, and ad tuning.</p>
+            </div>
+
+            <div class="method-step-card border-t-line">
+              <span class="step-num text-green">06</span>
+              <h3 class="step-name">SCALE</h3>
+              <p class="step-desc">Expand budget allocation into winning acquisition channels for rapid revenue growth.</p>
+            </div>
+          </div>
+
+          <div class="method-video-banner mt-80">
+            <figure class="method-video-frame">
+              <video src="https://www.doorsstudio.com/assets/front/videos/explore-method.mp4" autoplay loop muted playsinline class="method-video"></video>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7. GLOBAL FOOTPRINT (NETWORK VISUALIZATION) -->
+      <section class="section-editorial bg-secondary-panel" id="global">
+        <div class="site-container">
+          <div class="section-header-block text-center mb-80">
+            <span class="section-label">(GLOBAL FOOTPRINT)</span>
+            <h2 class="editorial-heading uppercase">One Agency. Global Reach.</h2>
+            <p class="section-subtext">Strategic operations spanning India, United Arab Emirates, and the United States.</p>
+          </div>
+
+          <div class="global-network-panel">
+            <div class="network-node node-india">
+              <div class="node-pulse bg-pink"></div>
+              <div class="node-info">
+                <span class="node-country text-pink">INDIA HQ</span>
+                <h4 class="node-city">Gurugram & Goa</h4>
+                <p class="node-address">Cyber City NCR & Panjim Hub</p>
+              </div>
+            </div>
+
+            <div class="network-node node-uae">
+              <div class="node-pulse bg-yellow"></div>
+              <div class="node-info">
+                <span class="node-country text-yellow">UAE HUB</span>
+                <h4 class="node-city">Dubai</h4>
+                <p class="node-address">Business Bay Tower</p>
+              </div>
+            </div>
+
+            <div class="network-node node-usa">
+              <div class="node-pulse bg-green"></div>
+              <div class="node-info">
+                <span class="node-country text-green">USA HUB</span>
+                <h4 class="node-city">Austin</h4>
+                <p class="node-address">Congress Ave Tech Suite</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 8. HUGE STATEMENT CTA SECTION -->
+      <section class="section-cta" id="contact">
+        <div class="site-container text-center">
+          <span class="section-label text-yellow">(START YOUR GROWTH ARC)</span>
+          
+          <h2 class="cta-massive-statement uppercase">
+            LET'S<br>
+            BUILD<br>
+            <span class="text-gradient">WHAT'S NEXT.</span>
+          </h2>
+
+          <div class="cta-actions-row">
+            <button type="button" class="btn-cta btn-large open-modal-btn" data-service="Growth Project Kickoff">
+              <span>Talk to an Expert</span>
+              <i class="fas fa-arrow-right icon-arrow"></i>
+            </button>
+            
+            <a href="https://api.whatsapp.com/send?phone=919876543210&text=Hi%20GrowthArc%20Media!%20I'm%20ready%20to%20scale." target="_blank" rel="noopener" class="btn-secondary-action">
+              <i class="fab fa-whatsapp text-green"></i> Chat On WhatsApp
+            </a>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- 9. MINIMAL EDITORIAL FOOTER -->
+    <footer class="site-footer">
+      <div class="site-container">
+        
+        <div class="footer-top-row">
+          <div class="footer-brand">
+            <a href="/" class="brand-logo">
+              <span class="logo-badge">GA</span>
+              <span class="logo-title">GrowthArc<span class="dot-accent">.</span></span>
+            </a>
+            <p class="footer-desc">
+              GrowthArc Media (<a href="https://growtharcmedia.in" class="text-pink">growtharcmedia.in</a>) is a premier digital marketing & performance agency.
+            </p>
+          </div>
+
+          <div class="footer-col">
+            <h4 class="footer-col-title">Navigation</h4>
+            <ul>
+              <li><a href="/#about">About Us</a></li>
+              <li><a href="/#services">What We Do</a></li>
+              <li><a href="/work.html">Our Work</a></li>
+              <li><a href="/#method">Method</a></li>
+              <li><a href="/#global">Global Footprint</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4 class="footer-col-title">Services</h4>
+            <ul>
+              <li><a href="/services/brand-strategy.html">Brand Strategy</a></li>
+              <li><a href="/services/brand-identity.html">Brand Identity</a></li>
+              <li><a href="/services/creative-content.html">Creative & Content</a></li>
+              <li><a href="/services/digital-marketing.html">Digital Marketing</a></li>
+              <li><a href="/services/performance-marketing.html">Performance Marketing</a></li>
+              <li><a href="/services/web-development.html">Web Development</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4 class="footer-col-title">Contact</h4>
+            <p class="footer-contact-line">hello@growtharcmedia.in</p>
+            <p class="footer-contact-line">+91 98765 43210</p>
+            <div class="footer-social-row mt-20">
+              <a href="https://instagram.com" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+              <a href="https://linkedin.com" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+              <a href="https://twitter.com" target="_blank" aria-label="X Twitter"><i class="fab fa-x-twitter"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom-row">
+          <div class="footer-closing-statement uppercase">
+            BUILD<span class="dot-accent dot-pink">.</span> 
+            MARKET<span class="dot-accent dot-yellow">.</span> 
+            GROW<span class="dot-accent dot-green">.</span>
+          </div>
+          <div class="footer-copyright">
+            &copy; 2026 GrowthArc Media (growtharcmedia.in). All rights reserved.
+          </div>
+        </div>
+
+      </div>
+    </footer>
+
+    <!-- INTERACTIVE LEAD ENQUIRY MODAL -->
+    <div class="modal-backdrop" id="enquiryModal" aria-hidden="true">
+      <div class="modal-dialog">
+        <button type="button" class="modal-close" id="modalCloseBtn"><i class="fas fa-times"></i></button>
+        
+        <div class="modal-header">
+          <span class="section-label text-yellow">(GROWTH INQUIRY)</span>
+          <h3 class="modal-title">Let's Discuss Your Project</h3>
+        </div>
+
+        <form id="enquiryForm" class="modal-form">
+          <div class="form-field">
+            <label class="field-label">Selected Service</label>
+            <input type="text" id="selectedServiceInput" name="service" readonly class="field-input readonly-input" value="General Strategy Inquiry" />
+          </div>
+
+          <div class="form-row">
+            <div class="form-field">
+              <label class="field-label">Full Name *</label>
+              <input type="text" name="name" required placeholder="John Doe" class="field-input" />
+            </div>
+            <div class="form-field">
+              <label class="field-label">Work Email *</label>
+              <input type="email" name="email" required placeholder="john@company.com" class="field-input" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-field">
+              <label class="field-label">Phone / WhatsApp *</label>
+              <input type="tel" name="phone" required placeholder="+91 98765 43210" class="field-input" />
+            </div>
+            <div class="form-field">
+              <label class="field-label">Estimated Monthly Budget</label>
+              <select name="budget" class="field-input">
+                <option value="$2,000 - $5,000">$2,000 - $5,000 / mo</option>
+                <option value="$5,000 - $15,000" selected>$5,000 - $15,000 / mo</option>
+                <option value="$15,000 - $50,000">$15,000 - $50,000 / mo</option>
+                <option value="$50,000+">$50,000+ / mo</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label class="field-label">Project Details & Goals *</label>
+            <textarea name="message" rows="3" required placeholder="Tell us about your brand targets, revenue goals, or current marketing challenges..." class="field-input"></textarea>
+          </div>
+
+          <button type="submit" class="btn-cta w-full text-center">
+            <span>Submit Inquiry</span>
+            <i class="fas fa-paper-plane ml-2"></i>
+          </button>
+        </form>
+
+        <div id="formSuccessMessage" class="form-success-msg hidden">
+          <i class="fas fa-check-circle success-icon"></i>
+          <p>Thank you! Your inquiry has been submitted. Our team at GrowthArc Media will contact you shortly.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- FLOATING ACTION BUTTONS -->
+    <aside class="floating-controls">
+      <a href="https://api.whatsapp.com/send?phone=919876543210&text=Hi%20GrowthArc%20Media!" target="_blank" class="fab-btn fab-whatsapp" title="WhatsApp Chat">
+        <i class="fab fa-whatsapp"></i>
+      </a>
+      <button type="button" class="fab-btn fab-top" id="scrollTopBtn" title="Back to top">
+        <i class="fas fa-arrow-up"></i>
+      </button>
+    </aside>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
+
