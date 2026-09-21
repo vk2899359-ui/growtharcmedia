@@ -116,7 +116,7 @@ function initResilientVideo() {
       video.style.backgroundPosition = 'center';
     }
 
-    video.addEventListener('error', () => degradeToPoster(video), { once: true });
+    video.addEventListener('error', () => maybeDegrade(video), { once: true });
   });
 
   const eager = videos.filter(v => v.hasAttribute('data-eager-video'));
@@ -156,6 +156,21 @@ function safePlay(video) {
       // Autoplay refused or the file is unreachable — the poster stands in.
     });
   }
+}
+
+// Swapping the element out is irreversible, so only do it for an error the
+// source cannot recover from. A decode hiccup or an aborted range request
+// leaves the poster showing underneath anyway — the frame is never empty.
+function maybeDegrade(video) {
+  const err = video.error;
+  // No error object means nothing actually failed — leave the element alone.
+  if (!err) return;
+
+  const fatal =
+    err.code === MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED ||
+    err.code === MediaError.MEDIA_ERR_NETWORK;
+
+  if (fatal) degradeToPoster(video);
 }
 
 function degradeToPoster(video) {

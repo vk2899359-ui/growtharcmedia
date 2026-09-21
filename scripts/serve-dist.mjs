@@ -71,8 +71,36 @@ createServer(async (req, res) => {
   }
 
   const body = await readFile(file);
+  const type = TYPES[extname(file)] || 'application/octet-stream';
+
+  // Media elements request byte ranges. Answering a Range request with a plain
+  // 200 and the whole body makes Chrome's media stack treat the response as an
+  // error, so <video> would fail here for a reason that never applies on a real
+  // host — masking whether the file actually plays.
+  const range = /^bytes=(\d*)-(\d*)$/.exec(req.headers.range || '');
+  if (range) {
+    const start = range[1] ? Number(range[1]) : 0;
+    const end = range[2] ? Number(range[2]) : body.length - 1;
+
+    if (Number.isNaN(start) || Number.isNaN(end) || start > end || start >= body.length) {
+      res.writeHead(416, { 'content-range': `bytes */${body.length}` });
+      res.end();
+      return;
+    }
+
+    const slice = body.subarray(start, end + 1);
+    res.writeHead(206, {
+      'content-type': type,
+      'content-length': slice.length,
+      'content-range': `bytes ${start}-${end}/${body.length}`,
+      'accept-ranges': 'bytes',
+    });
+    res.end(req.method === 'HEAD' ? undefined : slice);
+    return;
+  }
+
   res.writeHead(200, {
-    'content-type': TYPES[extname(file)] || 'application/octet-stream',
+    'content-type': type,
     'content-length': body.length,
     'accept-ranges': 'bytes',
   });

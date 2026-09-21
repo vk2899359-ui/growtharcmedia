@@ -13,21 +13,11 @@
  * Anything not listed here is left exactly as authored.
  */
 export const VIDEO_SOURCE_OVERRIDES = {
-  // GrowthArc's own reels, recovered from the previous site and now served
-  // from this repo. These replace the third-party doorsstudio.com hotlinks
-  // that the markup shipped with — those were another studio's files and
-  // could be pulled or hotlink-blocked at any time.
-  'brand-big-idea2.mp4': '/videos/hero-reel.mp4',
-  'marketing-is-our-jam.mp4': '/videos/about-reel.mp4',
-  'explore-method.mp4': '/videos/work-reel.mp4',
-
-  // Six service panels, two reels — alternated so adjacent panels differ.
-  'brand-strategy.mp4': '/videos/services-hero.mp4',
-  'brand-identity.mp4': '/videos/services-reel.mp4',
-  'brand-communication.mp4': '/videos/services-hero.mp4',
-  'digital-marketing.mp4': '/videos/services-reel.mp4',
-  'performance-marketing.mp4': '/videos/services-hero.mp4',
-  'web-development.mp4': '/videos/services-reel.mp4',
+  // Empty on purpose. The homepage and the service pages keep the exact video
+  // sources they were authored with — nothing on those pages is remapped.
+  //
+  // GrowthArc's own reels live in /public/videos/ and are used directly by the
+  // blog page markup, not through this map.
 };
 
 /** Returns the URL a given video element should actually load. */

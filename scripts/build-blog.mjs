@@ -472,6 +472,41 @@ ${footer()}
 ${modal(service)}`;
 }
 
+/* --------------------------------------------------------------------------
+   GrowthArc reels
+   These are GrowthArc's own video files, served from this repo. They appear
+   on the blog index only — no other page's media is touched.
+   -------------------------------------------------------------------------- */
+
+const REELS = [
+  ['hero-reel.mp4', 'Brand Reel', '/og-image.png'],
+  ['about-reel.mp4', 'Inside The Studio', '/team-boardroom.webp'],
+  ['services-hero.mp4', 'What We Do', '/images/superup.png'],
+  ['services-reel.mp4', 'Creative & Campaigns', '/images/gemhub.png'],
+  ['work-reel.mp4', 'Work In Motion', '/team-marketing-mafias.webp'],
+];
+
+function reelStrip() {
+  return `
+      <section class="section-editorial blog-reels-section">
+        <div class="site-container">
+          <div class="section-header-block mb-40">
+            <span class="section-label text-yellow">(GROWTHARC REELS)</span>
+            <h2 class="editorial-heading uppercase">Work In Motion</h2>
+          </div>
+          <div class="blog-reels-grid">
+            ${REELS.map(([file, label, poster]) => `<figure class="blog-reel">
+              <div class="blog-reel-frame">
+                <video src="/videos/${file}" poster="${poster}" loop muted playsinline preload="none" data-lazy-video aria-label="${esc(label)}"></video>
+              </div>
+              <figcaption>${esc(label)}</figcaption>
+            </figure>`).join('\n            ')}
+          </div>
+        </div>
+      </section>
+`;
+}
+
 function cardMarkup(post) {
   return `<a href="/blog/${esc(post.slug)}" class="blog-card">
               <div class="blog-card-media">
@@ -546,6 +581,7 @@ ${header(service)}
         </div>
       </section>
 
+${reelStrip()}
       <section class="section-editorial bg-secondary-panel">
         <div class="site-container">
           <div class="blog-grid blog-grid-index" id="blogGrid">
