@@ -54,6 +54,12 @@ If the MCP errors (e.g. "no active ad account", permissions, rate limit), record
 
 ## 1b. Collect — Apify (scraping layer)
 
+Verified MCP behaviour: `ads_library_search` returns only id, page, link title, start date, snapshot URL and currency — **no primary text, CTA, landing URL or creative format**. So Apify is required for any full report.
+
+**Path A: Apify MCP connector (preferred when present).** Run ToolSearch for `apify` (also `call-actor`, `actor`). If tools load, call the actor `apify/facebook-ads-scraper` with the input in `references/apify.md` (startUrls = normalized URL, resultsLimit ≈ N×1.3, activeStatus), then fetch the run's dataset items. Write them to `<run_dir>/raw_apify.json` as `{"meta": {"collector": "apify-mcp", "actor": "..."}, "items": [...]}`. The connector holds its own auth, so no token handling is needed.
+
+**Path B: script (when no Apify connector is loaded).**
+
 ```bash
 python3 $SKILL/scripts/apify_fetch.py \
   --url "<normalized_url from parse_url.py>" \
@@ -112,7 +118,7 @@ Data integrity rules (non-negotiable):
 | Failure | Response |
 |---|---|
 | MCP error | Note it, continue with Apify |
-| No Apify token | Stop; point to setup in `references/apify.md` |
+| No Apify connector AND no token | Deliver an MCP-only report if MCP returned ads, with a clear note that primary text/CTA/landing page/creative type are missing, so hook, offer, creative and CTA sections are limited. Point to setup in `references/apify.md` |
 | Apify 401/403 | "Apify rejected the token (step: start_run, HTTP 401)" — ask user to check/rotate token |
 | Network blocked (proxy 403 / connection refused to api.apify.com) | Say the host `api.apify.com` is blocked by the environment's network policy; it must be allowed |
 | Run FAILED / TIMED-OUT | Report status + the run's status message; offer retry with smaller N |

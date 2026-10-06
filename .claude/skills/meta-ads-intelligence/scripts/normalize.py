@@ -176,6 +176,9 @@ def load_raw(path):
         inner = data["content"][0]
         if isinstance(inner, dict) and inner.get("type") == "text":
             data = json.loads(inner["text"])
+    # Meta MCP returns {"results": "<json string>"} with the ads under "ads"
+    if isinstance(data, dict) and isinstance(data.get("results"), str):
+        data = json.loads(data["results"])
     meta = {}
     if isinstance(data, dict):
         meta = data.get("meta") or {}
@@ -189,7 +192,8 @@ def load_raw(path):
 
 
 def is_mcp_item(it):
-    return any(k in it for k in ("ad_creative_bodies", "ad_snapshot_url", "ad_delivery_start_time"))
+    return any(k in it for k in ("ad_creative_bodies", "ad_creative_body", "ad_snapshot_url",
+                                 "ad_delivery_start_time", "ad_creation_time"))
 
 
 def from_item(it, market, status_filter):
@@ -208,20 +212,22 @@ def from_item(it, market, status_filter):
     ad_id = str(ad_id) if ad_id is not None else None
 
     primary = first(it, "snapshot.body.text", "snapshot.body", "ad_creative_bodies",
-                    "snapshot.cards.0.body")
+                    "ad_creative_body", "snapshot.cards.0.body")
     templated = isinstance(primary, str) and "{{" in primary
     if templated and cards:
         # DPA template body — prefer a real card body if one exists
         card_body = first(cards[0], "body")
         if card_body and "{{" not in str(card_body):
             primary = card_body
-    headline = first(it, "snapshot.title", "snapshot.cards.0.title", "ad_creative_link_titles")
+    headline = first(it, "snapshot.title", "snapshot.cards.0.title", "ad_creative_link_titles",
+                     "ad_creative_link_title")
     desc = first(it, "snapshot.linkDescription", "snapshot.cards.0.linkDescription",
-                 "ad_creative_link_descriptions")
+                 "ad_creative_link_descriptions", "ad_creative_link_description")
     cta = first(it, "snapshot.ctaText", "snapshot.cards.0.ctaText")
     cta_type = first(it, "snapshot.ctaType", "snapshot.cards.0.ctaType")
     landing = first(it, "snapshot.linkUrl", "snapshot.cards.0.linkUrl")
-    caption = first(it, "snapshot.caption", "ad_creative_link_captions")
+    caption = first(it, "snapshot.caption", "ad_creative_link_captions",
+                    "ad_creative_link_caption")
     fmt = first(it, "snapshot.displayFormat")
 
     is_active = dig(it, "isActive")
@@ -396,8 +402,8 @@ def main():
     for r in [by_id[i] for i in order] + no_id:
         fp = (norm(r["brand"]), norm(r["primary_text"]), norm(r["headline"]),
               norm((r["landing_url"] or "").split("?")[0]))
-        if fp[1] == "" and fp[2] == "":
-            fp = ("__id__", r["ad_id"] or id(r))  # no copy to compare — keep
+        if fp[1] == "":
+            fp = ("__id__", r["ad_id"] or id(r))  # no primary text to compare — keep
         if fp in seen:
             keeper = seen[fp]
             ids = [x for x in (keeper["duplicate_ad_ids"] or "").split(", ") if x]
