@@ -287,6 +287,7 @@ const wall = () => `
         <div class="vk-head">
           <span class="vk-eyebrow">Where I've Built Experience</span>
           <h2 class="vk-h2">Five companies. Retail floor to US-headquartered software.</h2>
+          <p class="vk-lede">Ten years, in order. Each one is expanded in the timeline above.</p>
         </div>
 
         <div class="vk-wall">
@@ -294,8 +295,10 @@ const wall = () => `
             .reverse()
             .map(
               (t) => `<div class="vk-wall-cell">
-            <span class="vk-wall-mark">${esc(t.mark)}</span>
+            <span class="vk-wall-mark">${esc(t.company)}</span>
+            <span class="vk-wall-role">${esc(t.role)}</span>
             <span class="vk-wall-years">${esc(t.period)}</span>
+            <span class="vk-wall-place">${esc(t.location)}</span>
           </div>`
             )
             .join('\n          ')}

@@ -1619,3 +1619,34 @@ body.vk *::selection {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Experience wall — role and place, not a logo grid. */
+.vk-wall-role {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--vk-text);
+  line-height: 1.35;
+}
+
+.vk-wall-place {
+  font-family: var(--vk-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--vk-dim);
+}
+
+.vk-wall-cell {
+  gap: 7px;
+  padding: 38px 18px;
+}
+
+.vk-wall-mark {
+  font-size: 0.88rem;
+  letter-spacing: 0.04em;
+  color: var(--vk-gold);
+}
+
+.vk-wall-cell:hover .vk-wall-mark {
+  color: var(--vk-gold);
+}
