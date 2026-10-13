@@ -19,7 +19,7 @@ const BLOG_SLUGS = readdirSync(new URL('../blog/', import.meta.url), { withFileT
   .map(e => e.name);
 
 const PAGES = [
-  '/', '/about', '/work.html', '/blog',
+  '/', '/about', '/vinod-kumar', '/work.html', '/blog',
   ...['brand-strategy','brand-identity','creative-content','digital-marketing','performance-marketing','web-development'].map(s=>`/services/${s}.html`),
   ...['auric-jewels','gemhub','kisaansay','superup-home-solution','kabeer-confectionery','veda-club','akiso','rupeenest-capital'].map(s=>`/work/${s}.html`),
   ...BLOG_SLUGS.map(s=>`/blog/${s}`),
@@ -118,7 +118,7 @@ console.log('\n=== link integrity ===');
     }
     // dead buttons: anything that looks clickable but has no handler hook
     const deadBtns = await page.$$eval('button', bs => bs
-      .filter(b => b.type !== 'submit' && !b.id && !b.className.split(' ').some(c => ['open-modal-btn','mobile-menu-trigger','mobile-close','modal-close','blog-chip'].includes(c)))
+      .filter(b => b.type !== 'submit' && !b.id && !b.className.split(' ').some(c => ['open-modal-btn','mobile-menu-trigger','mobile-close','modal-close','blog-chip','vk-tl-head'].includes(c)))
       .map(b => b.innerText.trim().slice(0,40)));
     for (const b of deadBtns) note(`${path} button with no handler: "${b}"`);
   }

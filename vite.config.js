@@ -19,6 +19,17 @@ function aboutInput() {
   return page;
 }
 
+function vinodInput() {
+  const page = resolve(root, 'vinod-kumar/index.html');
+  if (!existsSync(page)) {
+    throw new Error(
+      'vite.config.js: vinod-kumar/ is missing. Build with `npm run build` ' +
+      '(which runs scripts/build-vinod.mjs first), not `vite build` on its own.'
+    );
+  }
+  return page;
+}
+
 function blogInputs() {
   const dir = resolve(root, 'blog');
 
@@ -66,6 +77,7 @@ export default defineConfig({
         webDevelopment: resolve(root, 'services/web-development.html'),
         // Generated pages — see the build script in package.json
         about: aboutInput(),
+        vinod: vinodInput(),
         ...blogInputs(),
       },
     },
