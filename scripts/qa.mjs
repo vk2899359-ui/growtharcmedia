@@ -14,12 +14,18 @@ import { chromium } from 'playwright';
 import { readdirSync } from 'node:fs';
 
 const BASE = process.env.BASE || 'http://127.0.0.1:4173';
-const BLOG_SLUGS = readdirSync(new URL('../blog/', import.meta.url), { withFileTypes: true })
+const dirs = (rel) => readdirSync(new URL(rel, import.meta.url), { withFileTypes: true })
   .filter(e => e.isDirectory())
   .map(e => e.name);
 
+const BLOG_SLUGS = dirs('../blog/');
+const HUB_ROUTES = ['industries', 'locations'].flatMap(
+  (group) => dirs(`../${group}/`).map((slug) => `/${group}/${slug}`)
+);
+
 const PAGES = [
   '/', '/about', '/vinod-kumar', '/work.html', '/blog',
+  ...HUB_ROUTES,
   ...['brand-strategy','brand-identity','creative-content','digital-marketing','performance-marketing','web-development'].map(s=>`/services/${s}.html`),
   ...['auric-jewels','gemhub','kisaansay','superup-home-solution','kabeer-confectionery','veda-club','akiso','rupeenest-capital'].map(s=>`/work/${s}.html`),
   ...BLOG_SLUGS.map(s=>`/blog/${s}`),

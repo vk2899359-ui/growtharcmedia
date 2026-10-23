@@ -14,9 +14,12 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const SERVICE = 'About Page Inquiry';
 
 const DESCRIPTION =
-  `GrowthArc Media is a digital marketing and performance agency founded in ${agency.founded} by ${agency.founder}. ` +
-  `We unite brand strategy, creative, performance marketing and web engineering into one growth engine — ` +
-  `and we have done it for ${clients.length} brands across jewellery, fintech, FMCG, wellness, retail and agri-commerce.`;
+  `Founded in ${agency.founded} by ${agency.founder}, GrowthArc Media unites brand strategy, ad creative, ` +
+  `performance marketing & Next.js engineering under one roof across Gurugram, Goa, Dubai & Austin.`;
+
+// The descriptive heading the page is indexed on. The display lockup above it
+// ("WE BUILD GROWTH.") is brand type and says nothing a crawler can use.
+const SEO_H1 = 'One Growth Engine for Strategy, Creative, Performance Media & Code';
 
 /* --------------------------------------------------------------------------
    Schema — AboutPage plus the founder, tied back to the Organization node
@@ -81,9 +84,10 @@ const hero = () => `
       <section class="case-hero-section about-hero">
         <div class="site-container">
           <span class="section-label text-yellow">(WHO WE ARE)</span>
-          <h1 class="case-hero-title">
+          <div class="case-hero-title" role="presentation">
             WE BUILD<br>GROWTH<span class="dot-pink">.</span>
-          </h1>
+          </div>
+          <h1 class="page-seo-h1">${esc(SEO_H1)}</h1>
           <p class="case-hero-tagline">${esc(DESCRIPTION)}</p>
 
           <div class="about-proof-row">
@@ -105,7 +109,7 @@ const founderSection = () => `
           <div class="editorial-grid">
             <div class="grid-left">
               <figure class="about-founder-frame">
-                <img src="${esc(agency.founderImage)}" alt="${esc(agency.founder)}, ${esc(agency.founderRole)} of ${esc(agency.name)}" loading="lazy" decoding="async" />
+                <img src="${esc(agency.founderImage)}" alt="${esc(agency.founder)}, ${esc(agency.founderRole)} of ${esc(agency.name)} — performance marketing and digital growth agency in India" loading="lazy" decoding="async" />
               </figure>
             </div>
             <div class="grid-right">
@@ -184,7 +188,7 @@ const clientCard = (c) => {
   const inner = `
                 ${
                   c.logo
-                    ? `<div class="about-client-logo"><img src="${esc(c.logo)}" alt="${esc(c.name)} logo" loading="lazy" decoding="async" /></div>`
+                    ? `<div class="about-client-logo"><img src="${esc(c.logo)}" alt="${esc(c.name)} — ${esc(c.industry)} client of ${esc(agency.name)}, a digital marketing agency in India" loading="lazy" decoding="async" /></div>`
                     : `<div class="about-client-logo about-client-initials"><span>${esc(
                         c.name
                           .split(' ')
@@ -257,7 +261,7 @@ const ctaSection = () => `
    -------------------------------------------------------------------------- */
 
 const page = `${head({
-  title: `Who We Are — Digital Marketing Agency Since ${agency.founded} | ${agency.name}`,
+  title: `About ${agency.name} | Integrated Growth Agency Founded by ${agency.founder}`,
   description: DESCRIPTION,
   canonical: '/about',
   image: `${SITE}/og-image.png`,

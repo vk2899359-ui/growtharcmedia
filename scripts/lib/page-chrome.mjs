@@ -4,6 +4,8 @@
 // Two copies is how the nav on one page quietly stops matching the nav on
 // another, so they live here once.
 
+import { hubs } from '../../src/data/hubs.js';
+
 export const SITE = 'https://growtharcmedia.in';
 
 export const esc = (s) =>
@@ -120,6 +122,21 @@ export function header(service) {
 `;
 }
 
+// The industry and location hub pages are linked from every footer — that
+// internal linking is most of what makes them worth having.
+function siloColumn(group, title) {
+  const links = hubs
+    .filter((h) => h.group === group)
+    .map((h) => `              <li><a href="/${h.group}/${h.slug}">${esc(h.nav)}</a></li>`)
+    .join('\n');
+  return `          <div class="footer-col">
+            <h4 class="footer-col-title">${esc(title)}</h4>
+            <ul>
+${links}
+            </ul>
+          </div>`;
+}
+
 export function footer() {
   return `
     <footer class="site-footer">
@@ -165,6 +182,11 @@ export function footer() {
             </div>
           </div>
         </div>
+        <div class="footer-silo-row">
+${siloColumn('industries', 'Industries We Scale')}
+${siloColumn('locations', 'Locations')}
+        </div>
+
         <div class="footer-bottom-row">
           <div class="footer-closing-statement uppercase">
             BUILD<span class="dot-accent dot-pink">.</span>

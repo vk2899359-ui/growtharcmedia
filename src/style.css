@@ -3493,3 +3493,168 @@ a.testimonial-company:hover {
     padding: 1.5rem;
   }
 }
+
+/* ==========================================================================
+   29. SEO HEADINGS, FAQ ACCORDION & FOOTER SILO
+   The display lockups ("DEFINE. DESIGN. BUILD. MARKET.", "PERFORMANCE
+   MARKETING.") are brand type, not descriptive headings — a crawler reading
+   them learns nothing about the page. Each page now carries a real <h1>
+   beneath its lockup: a standfirst line that names the service and the
+   market. It is styled as editorial copy, so the hero still reads as one
+   composition rather than two competing headlines.
+   ========================================================================== */
+
+.page-seo-h1 {
+  font-size: clamp(1.05rem, 1.6vw, 1.35rem);
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  color: var(--text-dark);
+  max-width: 820px;
+  margin-top: 1.1rem;
+  overflow-wrap: anywhere;
+}
+
+.hero-typography-block .page-seo-h1 {
+  margin-top: 1.5rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--border-light);
+  max-width: 720px;
+}
+
+.case-hero-section .page-seo-h1 + .case-hero-tagline {
+  margin-top: 1rem;
+}
+
+/* --- FAQ accordion -------------------------------------------------------
+   Native <details>/<summary>: the answers are in the DOM whether or not the
+   panel is open, so search engines and AI crawlers read all of them, and the
+   section needs no JavaScript to work. -------------------------------------- */
+
+.faq-section {
+  border-top: 1px solid var(--border-light);
+}
+
+.faq-list {
+  margin-top: 2.5rem;
+  border-top: 1px solid var(--border-light);
+  max-width: 980px;
+}
+
+.faq-item {
+  border-bottom: 1px solid var(--border-light);
+}
+
+.faq-item > summary {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.5rem 0;
+  cursor: pointer;
+  list-style: none;
+  font-size: clamp(1.02rem, 1.5vw, 1.2rem);
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--text-black);
+  transition: var(--transition-fast);
+}
+
+.faq-item > summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item > summary:hover {
+  color: var(--accent-pink);
+}
+
+.faq-item > summary:focus-visible {
+  outline: 2px solid var(--accent-pink);
+  outline-offset: 4px;
+}
+
+.faq-marker {
+  flex: 0 0 auto;
+  width: 26px;
+  height: 26px;
+  margin-top: 2px;
+  border: 1px solid var(--border-light);
+  border-radius: 50%;
+  position: relative;
+  transition: var(--transition-fast);
+}
+
+.faq-marker::before,
+.faq-marker::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 1.5px;
+  background: currentColor;
+  transform: translate(-50%, -50%);
+  transition: transform 0.3s var(--ease-cinematic);
+}
+
+.faq-marker::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.faq-item[open] > summary {
+  color: var(--accent-pink);
+}
+
+.faq-item[open] .faq-marker {
+  border-color: var(--accent-pink);
+}
+
+.faq-item[open] .faq-marker::after {
+  transform: translate(-50%, -50%) rotate(0deg);
+}
+
+.faq-answer {
+  padding: 0 0 1.75rem;
+  margin: 0;
+  max-width: 820px;
+  font-size: 1.02rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 600px) {
+  .faq-item > summary {
+    gap: 1rem;
+    padding: 1.25rem 0;
+  }
+}
+
+/* --- Footer industry & location silo ------------------------------------- */
+
+.footer-silo-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 3rem;
+  padding-top: 2.5rem;
+  margin-bottom: 60px;
+  border-top: 1px solid var(--border-subtle-dark);
+}
+
+@media (max-width: 600px) {
+  .footer-silo-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.25rem;
+  }
+}
+
+.footer-silo-row .footer-col ul {
+  columns: 2;
+  column-gap: 2rem;
+}
+
+@media (max-width: 760px) {
+  .footer-silo-row .footer-col ul {
+    columns: 1;
+  }
+}

@@ -1,46 +1,53 @@
-# GrowthArc Media
+# GrowthArc Media (growtharcmedia.in)
 
-> GrowthArc Media is a performance-driven digital marketing agency in India, founded by Vinod Kumar. We help e-commerce brands, fintech companies, startups and service businesses grow through brand strategy, brand identity, creative and content, digital marketing, performance marketing and web development. Our focus is measurable results — ROAS, qualified leads and revenue — not vanity metrics.
+> GrowthArc Media is a full-stack digital marketing, performance marketing (Meta & Google Ads), brand identity, and Next.js web engineering agency headquartered in Gurugram (Delhi NCR) and Panjim (Goa), India, with global hubs in Dubai (UAE) and Austin (USA). Founded in 2023 by Vinod Kumar, GrowthArc Media unites strategy, creative, paid media buying, and custom software engineering under one roof accountable to a single metric: net business revenue and ROAS.
 
-## Key facts
+## Verified Agency Performance Benchmarks (2023–2026)
 
-- Company: GrowthArc Media
-- Founder & CEO: Vinod Kumar
-- Founded: 2023
-- Location / area served: India (Gurugram & Goa) + international (UAE, United States)
-- Positioning: Performance marketing & Generative Engine Optimization (GEO) agency
-- Phone / WhatsApp: +91 79060 81795
-- Email: vinod@growtharcmedia.in
-- Website: https://growtharcmedia.in
+- **Average Blended ROAS Delivered**: 5.8x across paid acquisition accounts
+- **Total Profitably Scaled Ad Spend**: ₹15 Crore+ ($1.8M+ USD)
+- **Average Cost Per Acquisition (CPA) Reduction**: -42% through creative testing and Next.js CRO
+- **Web Engineering Speed & Conversion**: 99/100 Google Lighthouse Speed Score, <0.8s average page load time, +180% mobile conversion rate increase
+- **Creative & Organic Growth**: 5.2x ad CTR increase across 450+ ad creatives produced; 6.8x organic & social impression reach; 94% client retention rate
+- **Track Record**: 11+ brands scaled across 9 industries (Jewellery, Fintech, Confectionery/FMCG, Wellness, Apparel/Retail, Real Estate, Agri-commerce, Home Services, Manufacturing)
 
-## Company
+## Core Services & Canonical URLs
 
-- [Vinod Kumar — Founder & Marketing Head](https://growtharcmedia.in/vinod-kumar): Career journey, performance-marketing expertise, measurable results and contact details.
-- [Who We Are — about GrowthArc Media](https://growtharcmedia.in/about): The agency's story since 2023, its founder Vinod Kumar, how it works, and the brands it has grown.
-
-## Services
-
+- [Homepage — Integrated Growth Engine](https://growtharcmedia.in/): Full-funnel brand strategy, creative, performance marketing, and web engineering in India.
 - [Brand Strategy](https://growtharcmedia.in/services/brand-strategy.html): Positioning, market analysis, brand purpose and the growth roadmap that comes out of them.
-- [Brand Identity](https://growtharcmedia.in/services/brand-identity.html): Logomarks, design systems, typography, naming and packaging — the whole visual identity.
-- [Creative & Content](https://growtharcmedia.in/services/creative-content.html): Ad creative production, brand copywriting, UGC and creator video, content strategy and PR.
-- [Digital Marketing](https://growtharcmedia.in/services/digital-marketing.html): Full-funnel social media management, organic search, community building and influencer relations.
-- [Performance Marketing](https://growtharcmedia.in/services/performance-marketing.html): Google Search Ads, Meta Ads, TikTok and LinkedIn, programmatic media buying and CRO.
-- [Web Development](https://growtharcmedia.in/services/web-development.html): Custom UI/UX, React and Vite web apps, e-commerce platforms, headless architecture and technical SEO.
+- [Brand Identity & Design Systems](https://growtharcmedia.in/services/brand-identity.html): Market discovery, bespoke vector logomarks, typography & colour psychology, brand guidelines, retail packaging and UI kits (120+ identity systems engineered, 3.8x brand recall lift).
+- [Creative & Content Strategy](https://growtharcmedia.in/services/creative-content.html): Direct-response ad creatives, D2C UGC video campaigns, motion graphics, brand reels, conversion copywriting and PR outreach.
+- [Digital Marketing, SEO & Generative Engine Optimization (GEO)](https://growtharcmedia.in/services/digital-marketing.html): Organic SEO, AI Search Optimization (getting brands cited in ChatGPT, Perplexity & Google AI Overviews), full-funnel social media management, community building and influencer marketing.
+- [Performance Marketing & High-ROAS Ads](https://growtharcmedia.in/services/performance-marketing.html): Meta Ads (Facebook & Instagram), Google Search, Shopping, Performance Max, YouTube, TikTok & LinkedIn paid media buying, and Conversion Rate Optimization (CRO).
+- [Web Development & E-Commerce Engineering](https://growtharcmedia.in/services/web-development.html): Custom Next.js, React, Vite, headless Shopify/e-commerce platforms, sub-second landing pages, UI/UX prototyping and API/automation integrations.
+- [Client Portfolio & Case Studies](https://growtharcmedia.in/work.html): Verified results for Auric Jewels, GemHub, Kisaansay, Superup Home Solution, Kabeer Confectionery, Veda Club, Akiso, RupeeNest Capital.
+- [About GrowthArc Media & Founder Vinod Kumar](https://growtharcmedia.in/about): Agency origin story, operating principles, and leadership.
+- [Vinod Kumar — Founder & Marketing Head](https://growtharcmedia.in/vinod-kumar): Career journey, performance-marketing expertise and contact details.
 
-## Work & case studies
+## Industries We Scale
 
-- [Auric Jewels](https://growtharcmedia.in/work/auric-jewels.html): Branding, digital marketing and performance for a luxury jewellery brand.
-- [GemHub](https://growtharcmedia.in/work/gemhub.html): Performance marketing, creative and growth for a gemstone e-commerce platform.
-- [Kisaansay](https://growtharcmedia.in/work/kisaansay.html): Digital marketing and growth for an agri-commerce brand.
-- [Superup Home Solution](https://growtharcmedia.in/work/superup-home-solution.html): Branding, marketing and digital for a smart-home solutions business.
-- [Kabeer Confectionery](https://growtharcmedia.in/work/kabeer-confectionery.html): Creative and digital marketing for a confectionery manufacturer.
-- [Veda Club](https://growtharcmedia.in/work/veda-club.html): Branding and digital for a wellness and lifestyle club.
-- [Akiso](https://growtharcmedia.in/work/akiso.html): Branding and digital marketing for a sustainable contemporary apparel label.
-- [RupeeNest Capital](https://growtharcmedia.in/work/rupeenest-capital.html): Performance marketing and digital growth for a fintech capital advisory firm.
+- [D2C & E-Commerce Growth Agency in India](https://growtharcmedia.in/industries/d2c-ecommerce-marketing-agency-india): D2C growth agency in India running Meta and Google Ads, UGC creative and sub-second Next.js storefronts. 5.8x blended ROAS on ₹15Cr+ of ad spend across 11+ brands.
+- [Jewellery & Luxury Marketing Agency in India](https://growtharcmedia.in/industries/jewellery-marketing-agency-india): Jewellery digital marketing agency in India for gold, diamond and lab-grown brands. Branding, Meta and Google Ads, and e-commerce builds behind GemHub and Auric Jewels.
+- [Fintech & Financial Services Marketing Agency in India](https://growtharcmedia.in/industries/fintech-marketing-agency-india): Fintech performance marketing agency in India: high-intent investor and borrower funnels, compliant paid media and secure web platforms. RupeeNest Capital case study.
 
-- [All work](https://growtharcmedia.in/work.html)
+## Locations
 
-## Guides & blog
+- [Performance Marketing Agency in Gurugram & Delhi NCR](https://growtharcmedia.in/locations/performance-marketing-agency-gurugram-delhi-ncr): Performance marketing agency in Gurugram and Delhi NCR. Meta and Google Ads, creative production and Next.js engineering from our Cyber City NCR base. 5.8x average ROAS.
+- [Digital Marketing & Performance Agency for Mumbai Brands](https://growtharcmedia.in/locations/digital-marketing-agency-mumbai): Digital marketing and performance agency serving Mumbai D2C, retail and financial brands from our Gurugram and Goa hubs. Meta and Google Ads, SEO, GEO and Next.js builds.
+- [Digital Marketing & Growth Agency for Bengaluru Brands](https://growtharcmedia.in/locations/digital-marketing-agency-bengaluru): Digital marketing, performance and Next.js engineering for Bengaluru D2C, SaaS and fintech brands — run from our Gurugram and Goa hubs. SEO, GEO, Meta and Google Ads.
+
+## Client Case Studies Summary
+
+- **Auric Jewels** ([case study](https://growtharcmedia.in/work/auric-jewels.html)): Jewellery & Lifestyle — branding, digital marketing and high-ROAS performance scaling.
+- **GemHub** ([case study](https://growtharcmedia.in/work/gemhub.html)): Luxury Jewellery E-Commerce — custom e-commerce web portal, creative production and performance growth.
+- **Kisaansay** ([case study](https://growtharcmedia.in/work/kisaansay.html)): Agri-Commerce — brand identity, agritech packaging and full-funnel digital growth.
+- **Superup Home Solution** ([case study](https://growtharcmedia.in/work/superup-home-solution.html)): Home Services — brand strategy, identity and digital lead generation.
+- **Kabeer Confectionery** ([case study](https://growtharcmedia.in/work/kabeer-confectionery.html)): Confectionery, Bakery & FMCG — packaging design, ad creative engine and digital marketing.
+- **Veda Club** ([case study](https://growtharcmedia.in/work/veda-club.html)): Wellness & Luxury Lifestyle — visual identity system, omnichannel social and digital presence.
+- **Akiso** ([case study](https://growtharcmedia.in/work/akiso.html)): Retail & Apparel — brand positioning, Meta & Google Ads scaling (4.8x ROAS) and organic reach.
+- **RupeeNest Capital** ([case study](https://growtharcmedia.in/work/rupeenest-capital.html)): Fintech & Financial Services — high-security fintech web platform, paid funnels and qualified lead generation.
+
+## Guides & Blog
 
 - [How to Choose a Digital Marketing Agency in India (2026): An Honest Buyer's Guide](https://growtharcmedia.in/blog/how-to-choose-digital-marketing-agency-india-2026): Most Indian businesses hire the wrong agency because they judge on price and promises instead of proof.
 - [Google AI Overviews India 2026: How to Get Your Brand Featured in AI Search](https://growtharcmedia.in/blog/google-ai-overviews-india-2026-how-to-rank): Google AI Overviews are replacing blue links for millions of searches in India.
@@ -61,9 +68,14 @@
 
 GrowthArc Media runs a six-stage process: Discover (brand audit, market intelligence, target profiling), Strategize (positioning, messaging matrix, media strategy, ROI targets), Create (visual identity, ad creative, digital assets), Launch (multi-channel campaigns, search ads, web experience), Optimize (CRO, creative iteration, audience testing) and Scale (budget expansion into winning acquisition channels).
 
-## Contact
+## Contact & Office Locations
 
-- Phone / WhatsApp: +91 79060 81795
-- Email: vinod@growtharcmedia.in
-- Instagram: https://www.instagram.com/growtharcmedia.in/
-- LinkedIn: https://www.linkedin.com/in/vinodkumar-calance
+- **Founder & CEO**: Vinod Kumar
+- **Email**: vinod@growtharcmedia.in
+- **Phone / WhatsApp**: +91 79060 81795
+- **India HQ**: Cyber City NCR (Gurugram, Haryana) & Panjim Hub (Goa), India
+- **UAE Hub**: Business Bay Tower, Dubai, UAE
+- **USA Hub**: Congress Ave Tech Suite, Austin, Texas, USA
+- **Instagram**: https://www.instagram.com/growtharcmedia.in/
+- **LinkedIn**: https://www.linkedin.com/in/vinodkumar-calance
+- **Typical Client Monthly Retainer / Budget Tier**: $2,000 – $50,000+ / month (₹1.5L – ₹40L+ / month)

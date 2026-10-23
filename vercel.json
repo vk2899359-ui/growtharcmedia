@@ -4,6 +4,23 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/services/website-development",
+      "destination": "/services/web-development.html",
+      "statusCode": 301
+    },
+    {
+      "source": "/services/website-development.html",
+      "destination": "/services/web-development.html",
+      "statusCode": 301
+    }
+  ],
   "rewrites": [
     {
       "source": "/blog",
@@ -16,6 +33,14 @@
     {
       "source": "/blog/:slug",
       "destination": "/blog/:slug/index.html"
+    },
+    {
+      "source": "/industries/:slug",
+      "destination": "/industries/:slug/index.html"
+    },
+    {
+      "source": "/locations/:slug",
+      "destination": "/locations/:slug/index.html"
     }
   ],
   "headers": [
