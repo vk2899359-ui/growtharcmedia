@@ -27,7 +27,7 @@ export const FAQ = {
     },
     {
       q: "Where is GrowthArc Media located?",
-      a: "GrowthArc Media is headquartered in India with offices in Gurugram (Cyber City, Delhi NCR) and Goa (Panjim), plus hubs in Dubai, UAE (Business Bay) and Austin, USA. We serve clients across India, the UAE, the United States and the United Kingdom.",
+      a: "GrowthArc Media is based in India, with our team in Gurugram (Delhi NCR) and Goa. We work remotely with brands in the UAE and the United States. We serve clients across India, the UAE, the United States and the United Kingdom.",
     },
     {
       q: "Which brands has GrowthArc Media worked with?",
@@ -59,7 +59,7 @@ export const FAQ = {
     },
     {
       q: 'Does GrowthArc Media work with brands outside India?',
-      a: 'Yes. India is home — Gurugram in Delhi NCR and a Panjim hub in Goa — with hubs in Dubai, UAE and Austin, USA, serving clients across India, the UAE, the United States and the United Kingdom. Reach us on WhatsApp or phone at +91 79060 81795, or at vinod@growtharcmedia.in.',
+      a: 'Yes. India is home — our team is based in Gurugram in Delhi NCR and in Goa — and we work remotely with brands, serving clients across India, the UAE, the United States and the United Kingdom. Reach us on WhatsApp or phone at +91 79060 81795, or at vinod@growtharcmedia.in.',
     },
   ],
 

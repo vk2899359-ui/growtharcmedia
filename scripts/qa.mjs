@@ -24,7 +24,7 @@ const HUB_ROUTES = ['industries', 'locations'].flatMap(
 );
 
 const PAGES = [
-  '/', '/about', '/vinod-kumar', '/work.html', '/blog',
+  '/', '/about', '/vinod-kumar', '/work.html', '/blog', '/privacy', '/terms', '/contact',
   ...HUB_ROUTES,
   ...['brand-strategy','brand-identity','creative-content','digital-marketing','performance-marketing','web-development'].map(s=>`/services/${s}.html`),
   ...['auric-jewels','gemhub','kisaansay','superup-home-solution','kabeer-confectionery','veda-club','akiso','rupeenest-capital'].map(s=>`/work/${s}.html`),

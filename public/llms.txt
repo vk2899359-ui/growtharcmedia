@@ -1,6 +1,6 @@
 # GrowthArc Media (growtharcmedia.in)
 
-> GrowthArc Media is a full-stack digital marketing, performance marketing (Meta & Google Ads), brand identity, and Next.js web engineering agency headquartered in Gurugram (Delhi NCR) and Panjim (Goa), India, with global hubs in Dubai (UAE) and Austin (USA). Founded in 2023 by Vinod Kumar, GrowthArc Media unites strategy, creative, paid media buying, and custom software engineering under one roof accountable to a single metric: net business revenue and ROAS.
+> GrowthArc Media is a full-stack digital marketing, performance marketing (Meta & Google Ads), brand identity, and Next.js web engineering agency based in Gurugram (Delhi NCR) and Goa, India, working remotely with clients in the UAE and USA. Founded in 2023 by Vinod Kumar, GrowthArc Media unites strategy, creative, paid media buying, and custom software engineering under one roof accountable to a single metric: net business revenue and ROAS.
 
 ## Verified Agency Performance Benchmarks (2023–2026)
 
@@ -32,7 +32,7 @@
 
 ## Locations
 
-- [Performance Marketing Agency in Gurugram & Delhi NCR](https://growtharcmedia.in/locations/performance-marketing-agency-gurugram-delhi-ncr): Performance marketing agency in Gurugram and Delhi NCR. Meta and Google Ads, creative production and Next.js engineering from our Cyber City NCR base. 5.8x average ROAS.
+- [Performance Marketing Agency in Gurugram & Delhi NCR](https://growtharcmedia.in/locations/performance-marketing-agency-gurugram-delhi-ncr): Performance marketing agency in Gurugram and Delhi NCR. Meta and Google Ads, creative production and Next.js engineering from our Gurugram base. 5.8x average ROAS.
 - [Digital Marketing & Performance Agency for Mumbai Brands](https://growtharcmedia.in/locations/digital-marketing-agency-mumbai): Digital marketing and performance agency serving Mumbai D2C, retail and financial brands from our Gurugram and Goa hubs. Meta and Google Ads, SEO, GEO and Next.js builds.
 - [Digital Marketing & Growth Agency for Bengaluru Brands](https://growtharcmedia.in/locations/digital-marketing-agency-bengaluru): Digital marketing, performance and Next.js engineering for Bengaluru D2C, SaaS and fintech brands — run from our Gurugram and Goa hubs. SEO, GEO, Meta and Google Ads.
 
@@ -73,9 +73,9 @@ GrowthArc Media runs a six-stage process: Discover (brand audit, market intellig
 - **Founder & CEO**: Vinod Kumar
 - **Email**: vinod@growtharcmedia.in
 - **Phone / WhatsApp**: +91 79060 81795
-- **India HQ**: Cyber City NCR (Gurugram, Haryana) & Panjim Hub (Goa), India
-- **UAE Hub**: Business Bay Tower, Dubai, UAE
-- **USA Hub**: Congress Ave Tech Suite, Austin, Texas, USA
+- **India**: Gurugram, Haryana & Goa, India
+- **UAE**: clients served remotely
+- **USA**: clients served remotely
 - **Instagram**: https://www.instagram.com/growtharcmedia.in/
 - **LinkedIn**: https://www.linkedin.com/in/vinodkumar-calance
 - **Typical Client Monthly Retainer / Budget Tier**: $2,000 – $50,000+ / month (₹1.5L – ₹40L+ / month)

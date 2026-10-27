@@ -35,6 +35,18 @@
       "destination": "/blog/:slug/index.html"
     },
     {
+      "source": "/privacy",
+      "destination": "/privacy/index.html"
+    },
+    {
+      "source": "/terms",
+      "destination": "/terms/index.html"
+    },
+    {
+      "source": "/contact",
+      "destination": "/contact/index.html"
+    },
+    {
       "source": "/industries/:slug",
       "destination": "/industries/:slug/index.html"
     },

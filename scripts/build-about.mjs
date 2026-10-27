@@ -15,7 +15,7 @@ const SERVICE = 'About Page Inquiry';
 
 const DESCRIPTION =
   `Founded in ${agency.founded} by ${agency.founder}, GrowthArc Media unites brand strategy, ad creative, ` +
-  `performance marketing & Next.js engineering under one roof across Gurugram, Goa, Dubai & Austin.`;
+  `performance marketing & Next.js engineering under one roof from Gurugram and Goa.`;
 
 // The descriptive heading the page is indexed on. The display lockup above it
 // ("WE BUILD GROWTH.") is brand type and says nothing a crawler can use.

@@ -690,14 +690,61 @@ function initEnquiryModal() {
   });
 
   if (form) {
-    form.addEventListener('submit', e => {
+    // Hidden field real visitors never fill; the API drops anything that does.
+    if (!form.querySelector('[name="website"]')) {
+      const trap = document.createElement('input');
+      trap.type = 'text';
+      trap.name = 'website';
+      trap.tabIndex = -1;
+      trap.autocomplete = 'off';
+      trap.setAttribute('aria-hidden', 'true');
+      trap.style.cssText = 'position:absolute;left:-9999px;opacity:0';
+      form.appendChild(trap);
+    }
+
+    const errorBox = document.createElement('p');
+    errorBox.className = 'form-error-msg';
+    errorBox.setAttribute('role', 'alert');
+    errorBox.style.cssText = 'color:#c0152f;font-size:14px;line-height:1.5;margin:12px 0 0';
+    errorBox.hidden = true;
+    form.appendChild(errorBox);
+
+    form.addEventListener('submit', async e => {
       e.preventDefault();
-      form.style.display = 'none';
-      if (successMsg) successMsg.classList.remove('hidden');
-      successTimer = setTimeout(() => {
-        closeModal();
-        form.reset();
-      }, 3500);
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const label = submitBtn && submitBtn.querySelector('span');
+      const idleLabel = label && label.textContent;
+      const data = Object.fromEntries(new FormData(form).entries());
+
+      errorBox.hidden = true;
+      if (submitBtn) submitBtn.disabled = true;
+      if (label) label.textContent = 'Sending...';
+
+      try {
+        // The success state is only shown once the server confirms delivery,
+        // so a lead that was not actually sent never looks like it was.
+        const res = await fetch('/api/enquiry', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ...data, page: location.pathname }),
+        });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        form.style.display = 'none';
+        if (successMsg) successMsg.classList.remove('hidden');
+        successTimer = setTimeout(() => {
+          closeModal();
+          form.reset();
+        }, 3500);
+      } catch {
+        const text = `Hello GrowthArc Media! I am ${data.name || ''}. ${data.message || ''} (Email: ${data.email || ''})`;
+        errorBox.innerHTML =
+          `We couldn't send your enquiry just now. Please <a href="https://api.whatsapp.com/send?phone=917906081795&text=${encodeURIComponent(text)}" target="_blank" rel="noopener" style="text-decoration:underline;font-weight:600">send it on WhatsApp</a> ` +
+          `or email <a href="mailto:vinod@growtharcmedia.in" style="text-decoration:underline;font-weight:600">vinod@growtharcmedia.in</a>.`;
+        errorBox.hidden = false;
+      } finally {
+        if (submitBtn) submitBtn.disabled = false;
+        if (label && idleLabel) label.textContent = idleLabel;
+      }
     });
   }
 }

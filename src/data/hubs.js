@@ -249,7 +249,7 @@ export const hubs = [
     nav: 'Gurugram & Delhi NCR',
     title: 'Performance Marketing Agency in Gurugram & Delhi NCR | GrowthArc Media',
     description:
-      'Performance marketing agency in Gurugram and Delhi NCR. Meta and Google Ads, creative production and Next.js engineering from our Cyber City NCR base. 5.8x average ROAS.',
+      'Performance marketing agency in Gurugram and Delhi NCR. Meta and Google Ads, creative production and Next.js engineering from our Gurugram base. 5.8x average ROAS.',
     h1: 'Performance Marketing Agency in Gurugram & Delhi NCR',
     label: '(LOCATION)',
     display: 'GURUGRAM<br>& DELHI NCR',
@@ -257,7 +257,7 @@ export const hubs = [
     city: 'Gurugram',
     region: 'Haryana',
     lede:
-      'Gurugram is home. GrowthArc Media runs from Cyber City in Delhi NCR, which means a client in Gurugram, Delhi, Noida or Faridabad gets the one thing remote retainers cannot offer: the media buyer, the creative lead and the engineer in a room with you when the numbers need explaining.',
+      'Gurugram is home. GrowthArc Media runs from Gurugram in Delhi NCR, which means a client in Gurugram, Delhi, Noida or Faridabad gets the one thing remote retainers cannot offer: the media buyer, the creative lead and the engineer in a room with you when the numbers need explaining.',
     stats: [
       { value: '5.8x', label: 'Average blended ROAS delivered' },
       { value: '₹15Cr+', label: 'Ad spend scaled profitably' },
@@ -285,7 +285,7 @@ export const hubs = [
         label: '(BEYOND NCR)',
         heading: 'A second Indian hub in Goa, and clients in the UAE and US.',
         body: [
-          'The agency also runs a Panjim hub in Goa, with hubs in Dubai and Austin serving clients across the UAE, United States and United Kingdom. Pan-India and international accounts are run from the same team on the same reporting, so a brand scaling out of NCR does not change agency to do it.',
+          'The agency also has a team in Goa, and works remotely with clients across the UAE, United States and United Kingdom. Pan-India and international accounts are run from the same team on the same reporting, so a brand scaling out of NCR does not change agency to do it.',
         ],
       },
     ],
@@ -298,7 +298,7 @@ export const hubs = [
     faqs: [
       {
         q: 'Where in Gurugram is GrowthArc Media based?',
-        a: 'Our India headquarters is in Cyber City, Gurugram, Haryana, serving Gurugram, Delhi, Noida, Ghaziabad and Faridabad. Call or WhatsApp +91 79060 81795, or email vinod@growtharcmedia.in to arrange a meeting.',
+        a: 'Our India headquarters is in Gurugram, Haryana, serving Gurugram, Delhi, Noida, Ghaziabad and Faridabad. Call or WhatsApp +91 79060 81795, or email vinod@growtharcmedia.in to arrange a meeting.',
       },
       {
         q: 'What does a performance marketing agency in Gurugram charge?',
@@ -314,7 +314,7 @@ export const hubs = [
       },
       {
         q: 'Do you only work with NCR brands?',
-        a: 'No. We run pan-India accounts from here, plus a Goa hub and hubs in Dubai and Austin serving clients across the UAE, United States and United Kingdom.',
+        a: 'No. We run pan-India accounts from here, with a team in Goa as well, and work remotely with clients across the UAE, United States and United Kingdom.',
       },
     ],
   },
@@ -375,7 +375,7 @@ export const hubs = [
     faqs: [
       {
         q: 'Does GrowthArc Media have an office in Mumbai?',
-        a: 'No. Our Indian offices are in Gurugram (Cyber City, Delhi NCR) and Panjim, Goa, and Mumbai accounts are run from there. We say so plainly because a listed address we do not occupy would be the first thing a prospective client could catch us out on.',
+        a: 'No. Our Indian offices are in Gurugram (Delhi NCR) and Panjim, Goa, and Mumbai accounts are run from there. We say so plainly because a listed address we do not occupy would be the first thing a prospective client could catch us out on.',
       },
       {
         q: 'Can you handle shoots and events in Mumbai?',
@@ -452,7 +452,7 @@ export const hubs = [
     faqs: [
       {
         q: 'Does GrowthArc Media have a Bengaluru office?',
-        a: 'No. Our Indian offices are Gurugram (Cyber City, Delhi NCR) and Panjim, Goa; Bengaluru accounts are run from there, with hubs in Dubai and Austin for international clients.',
+        a: 'No. Our team is based in Gurugram (Delhi NCR) and Goa; Bengaluru accounts are run remotely from there, and we also work with international clients remotely.',
       },
       {
         q: 'Do you work with B2B SaaS as well as D2C?',

@@ -75,6 +75,9 @@ const EXTRA_URLS = [
   { loc: '/blog', changefreq: 'weekly', priority: '0.9', lastmod: posts[0]?.date },
   { loc: '/services/brand-strategy.html', changefreq: 'monthly', priority: '0.85' },
   { loc: '/vinod-kumar', changefreq: 'monthly', priority: '0.8' },
+  { loc: '/contact', changefreq: 'yearly', priority: '0.3' },
+  { loc: '/privacy', changefreq: 'yearly', priority: '0.3' },
+  { loc: '/terms', changefreq: 'yearly', priority: '0.3' },
   ...hubs.map((h) => ({
     loc: `/${h.group}/${h.slug}`,
     changefreq: 'weekly',
@@ -174,7 +177,7 @@ writeFileSync(resolve(root, 'public/robots.txt'), robots);
 
 const llms = `# GrowthArc Media (growtharcmedia.in)
 
-> GrowthArc Media is a full-stack digital marketing, performance marketing (Meta & Google Ads), brand identity, and Next.js web engineering agency headquartered in Gurugram (Delhi NCR) and Panjim (Goa), India, with global hubs in Dubai (UAE) and Austin (USA). Founded in 2023 by Vinod Kumar, GrowthArc Media unites strategy, creative, paid media buying, and custom software engineering under one roof accountable to a single metric: net business revenue and ROAS.
+> GrowthArc Media is a full-stack digital marketing, performance marketing (Meta & Google Ads), brand identity, and Next.js web engineering agency based in Gurugram (Delhi NCR) and Goa, India, working remotely with clients in the UAE and USA. Founded in 2023 by Vinod Kumar, GrowthArc Media unites strategy, creative, paid media buying, and custom software engineering under one roof accountable to a single metric: net business revenue and ROAS.
 
 ## Verified Agency Performance Benchmarks (2023–2026)
 
@@ -226,9 +229,9 @@ GrowthArc Media runs a six-stage process: Discover (brand audit, market intellig
 - **Founder & CEO**: Vinod Kumar
 - **Email**: vinod@growtharcmedia.in
 - **Phone / WhatsApp**: +91 79060 81795
-- **India HQ**: Cyber City NCR (Gurugram, Haryana) & Panjim Hub (Goa), India
-- **UAE Hub**: Business Bay Tower, Dubai, UAE
-- **USA Hub**: Congress Ave Tech Suite, Austin, Texas, USA
+- **India**: Gurugram, Haryana & Goa, India
+- **UAE**: clients served remotely
+- **USA**: clients served remotely
 - **Instagram**: https://www.instagram.com/growtharcmedia.in/
 - **LinkedIn**: https://www.linkedin.com/in/vinodkumar-calance
 - **Typical Client Monthly Retainer / Budget Tier**: $2,000 – $50,000+ / month (₹1.5L – ₹40L+ / month)

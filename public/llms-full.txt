@@ -1,6 +1,6 @@
 # GrowthArc Media (growtharcmedia.in)
 
-> GrowthArc Media is a full-stack digital marketing, performance marketing (Meta & Google Ads), brand identity, and Next.js web engineering agency headquartered in Gurugram (Delhi NCR) and Panjim (Goa), India, with global hubs in Dubai (UAE) and Austin (USA). Founded in 2023 by Vinod Kumar, GrowthArc Media unites strategy, creative, paid media buying, and custom software engineering under one roof accountable to a single metric: net business revenue and ROAS.
+> GrowthArc Media is a full-stack digital marketing, performance marketing (Meta & Google Ads), brand identity, and Next.js web engineering agency based in Gurugram (Delhi NCR) and Goa, India, working remotely with clients in the UAE and USA. Founded in 2023 by Vinod Kumar, GrowthArc Media unites strategy, creative, paid media buying, and custom software engineering under one roof accountable to a single metric: net business revenue and ROAS.
 
 ## Verified Agency Performance Benchmarks (2023–2026)
 
@@ -32,7 +32,7 @@
 
 ## Locations
 
-- [Performance Marketing Agency in Gurugram & Delhi NCR](https://growtharcmedia.in/locations/performance-marketing-agency-gurugram-delhi-ncr): Performance marketing agency in Gurugram and Delhi NCR. Meta and Google Ads, creative production and Next.js engineering from our Cyber City NCR base. 5.8x average ROAS.
+- [Performance Marketing Agency in Gurugram & Delhi NCR](https://growtharcmedia.in/locations/performance-marketing-agency-gurugram-delhi-ncr): Performance marketing agency in Gurugram and Delhi NCR. Meta and Google Ads, creative production and Next.js engineering from our Gurugram base. 5.8x average ROAS.
 - [Digital Marketing & Performance Agency for Mumbai Brands](https://growtharcmedia.in/locations/digital-marketing-agency-mumbai): Digital marketing and performance agency serving Mumbai D2C, retail and financial brands from our Gurugram and Goa hubs. Meta and Google Ads, SEO, GEO and Next.js builds.
 - [Digital Marketing & Growth Agency for Bengaluru Brands](https://growtharcmedia.in/locations/digital-marketing-agency-bengaluru): Digital marketing, performance and Next.js engineering for Bengaluru D2C, SaaS and fintech brands — run from our Gurugram and Goa hubs. SEO, GEO, Meta and Google Ads.
 
@@ -73,9 +73,9 @@ GrowthArc Media runs a six-stage process: Discover (brand audit, market intellig
 - **Founder & CEO**: Vinod Kumar
 - **Email**: vinod@growtharcmedia.in
 - **Phone / WhatsApp**: +91 79060 81795
-- **India HQ**: Cyber City NCR (Gurugram, Haryana) & Panjim Hub (Goa), India
-- **UAE Hub**: Business Bay Tower, Dubai, UAE
-- **USA Hub**: Congress Ave Tech Suite, Austin, Texas, USA
+- **India**: Gurugram, Haryana & Goa, India
+- **UAE**: clients served remotely
+- **USA**: clients served remotely
 - **Instagram**: https://www.instagram.com/growtharcmedia.in/
 - **LinkedIn**: https://www.linkedin.com/in/vinodkumar-calance
 - **Typical Client Monthly Retainer / Budget Tier**: $2,000 – $50,000+ / month (₹1.5L – ₹40L+ / month)
@@ -132,7 +132,7 @@ GrowthArc Media offers six core services: Brand Strategy, Brand Identity, Creati
 
 **Where is GrowthArc Media located?**
 
-GrowthArc Media is headquartered in India with offices in Gurugram (Cyber City, Delhi NCR) and Goa (Panjim), plus hubs in Dubai, UAE (Business Bay) and Austin, USA. We serve clients across India, the UAE, the United States and the United Kingdom.
+GrowthArc Media is based in India, with our team in Gurugram (Delhi NCR) and Goa. We work remotely with brands in the UAE and the United States. We serve clients across India, the UAE, the United States and the United Kingdom.
 
 **Which brands has GrowthArc Media worked with?**
 
@@ -164,7 +164,7 @@ Eleven-plus brands across nine verticals: jewellery and luxury e-commerce (Auric
 
 **Does GrowthArc Media work with brands outside India?**
 
-Yes. India is home — Gurugram in Delhi NCR and a Panjim hub in Goa — with hubs in Dubai, UAE and Austin, USA, serving clients across India, the UAE, the United States and the United Kingdom. Reach us on WhatsApp or phone at +91 79060 81795, or at vinod@growtharcmedia.in.
+Yes. India is home — our team is based in Gurugram in Delhi NCR and in Goa — and we work remotely with brands, serving clients across India, the UAE, the United States and the United Kingdom. Reach us on WhatsApp or phone at +91 79060 81795, or at vinod@growtharcmedia.in.
 
 ### Performance Marketing (https://growtharcmedia.in/services/performance-marketing.html)
 
@@ -368,7 +368,7 @@ From ₹1.5 lakh per month for a focused lead-generation engagement up to ₹40 
 
 **Where in Gurugram is GrowthArc Media based?**
 
-Our India headquarters is in Cyber City, Gurugram, Haryana, serving Gurugram, Delhi, Noida, Ghaziabad and Faridabad. Call or WhatsApp +91 79060 81795, or email vinod@growtharcmedia.in to arrange a meeting.
+Our India headquarters is in Gurugram, Haryana, serving Gurugram, Delhi, Noida, Ghaziabad and Faridabad. Call or WhatsApp +91 79060 81795, or email vinod@growtharcmedia.in to arrange a meeting.
 
 **What does a performance marketing agency in Gurugram charge?**
 
@@ -384,13 +384,13 @@ Generally yes. NCR-weighted campaigns compete against a dense, high-income adver
 
 **Do you only work with NCR brands?**
 
-No. We run pan-India accounts from here, plus a Goa hub and hubs in Dubai and Austin serving clients across the UAE, United States and United Kingdom.
+No. We run pan-India accounts from here, with a team in Goa as well, and work remotely with clients across the UAE, United States and United Kingdom.
 
 ### Mumbai — https://growtharcmedia.in/locations/digital-marketing-agency-mumbai
 
 **Does GrowthArc Media have an office in Mumbai?**
 
-No. Our Indian offices are in Gurugram (Cyber City, Delhi NCR) and Panjim, Goa, and Mumbai accounts are run from there. We say so plainly because a listed address we do not occupy would be the first thing a prospective client could catch us out on.
+No. Our Indian offices are in Gurugram (Delhi NCR) and Panjim, Goa, and Mumbai accounts are run from there. We say so plainly because a listed address we do not occupy would be the first thing a prospective client could catch us out on.
 
 **Can you handle shoots and events in Mumbai?**
 
@@ -412,7 +412,7 @@ Shared live dashboards, a weekly written read on what changed and why, and a mon
 
 **Does GrowthArc Media have a Bengaluru office?**
 
-No. Our Indian offices are Gurugram (Cyber City, Delhi NCR) and Panjim, Goa; Bengaluru accounts are run from there, with hubs in Dubai and Austin for international clients.
+No. Our team is based in Gurugram (Delhi NCR) and Goa; Bengaluru accounts are run remotely from there, and we also work with international clients remotely.
 
 **Do you work with B2B SaaS as well as D2C?**
 
